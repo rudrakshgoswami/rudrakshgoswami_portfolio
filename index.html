@@ -223,109 +223,95 @@
     }
 
     /* ------------------------------------------------------------------
-       Custom cursor.
+       Comet cursor.
 
-       mix-blend-mode: difference is doing the heavy lifting. The site runs
-       light sections against near-black ones, and a white cursor under
-       difference inverts against whatever is beneath it, so it stays visible
-       on both without any colour switching in JavaScript.
+       A lead dot sits on the pointer and six nodes chase it, each one easing
+       toward the node ahead of it rather than toward the pointer. That
+       chaining is what makes the tail curl behind the direction of travel
+       instead of sliding straight at you.
 
-       Only shown for a real mouse. Touch devices never match (hover: hover)
-       and (pointer: fine), so they keep their native behaviour untouched.
+       mix-blend-mode: difference keeps it legible without any colour logic:
+       the site runs light sections against near-black ones, and white under
+       difference inverts against whatever is beneath it.
        ------------------------------------------------------------------ */
-    .cursor-dot,
-    .cursor-ring {
+    .cursor-lead,
+    .cursor-trail,
+    .cursor-tag {
       position: fixed;
       top: 0;
       left: 0;
       z-index: 9999;
       pointer-events: none;
-      border-radius: 9999px;
       mix-blend-mode: difference;
       opacity: 0;
-      transition: opacity 0.25s ease;
+      transition: opacity 0.3s ease;
       will-change: transform;
     }
 
-    .cursor-dot {
-      width: 7px;
-      height: 7px;
-      margin: -3.5px 0 0 -3.5px;
+    .cursor-lead {
+      width: 10px;
+      height: 10px;
+      margin: -5px 0 0 -5px;
       background: #fff;
-      transition: opacity 0.25s ease, width 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-                  height 0.22s cubic-bezier(0.16, 1, 0.3, 1), margin 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .cursor-ring {
-      width: 34px;
-      height: 34px;
-      margin: -17px 0 0 -17px;
-      border: 1px solid rgba(255, 255, 255, 0.75);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.25s ease, width 0.32s cubic-bezier(0.16, 1, 0.3, 1),
-                  height 0.32s cubic-bezier(0.16, 1, 0.3, 1), margin 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+      border-radius: 9999px;
+      transition: opacity 0.3s ease, width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  height 0.3s cubic-bezier(0.16, 1, 0.3, 1), margin 0.3s cubic-bezier(0.16, 1, 0.3, 1),
                   background-color 0.3s ease, border-color 0.3s ease;
     }
 
-    .cursor-ring span {
+    .cursor-trail i {
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: block;
+      background: #fff;
+      border-radius: 9999px;
+      will-change: transform;
+    }
+
+    .cursor-tag {
+      margin: 16px 0 0 16px;
       font-size: 9px;
       font-weight: 800;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: #fff;
-      opacity: 0;
-      transform: scale(0.8);
-      transition: opacity 0.2s ease, transform 0.2s ease;
       white-space: nowrap;
     }
 
-    html.cursor-ready .cursor-dot,
-    html.cursor-ready .cursor-ring { opacity: 1; }
+    html.cursor-ready .cursor-lead,
+    html.cursor-ready .cursor-trail { opacity: 1; }
+    html.cursor-ready.cursor-tagged .cursor-tag { opacity: 1; }
 
-    /* Pointing at something clickable: the ring opens up, the dot gets out
-       of the way so it does not sit on top of what is being pointed at. */
-    html.cursor-active .cursor-ring {
-      width: 56px;
-      height: 56px;
-      margin: -28px 0 0 -28px;
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.9);
+    /* Over something clickable the head opens into a ring and the tail pulls
+       in tight behind it. */
+    html.cursor-active .cursor-lead,
+    html.cursor-tagged .cursor-lead {
+      width: 30px;
+      height: 30px;
+      margin: -15px 0 0 -15px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.9);
     }
-    html.cursor-active .cursor-dot { width: 0; height: 0; margin: 0; }
 
-    /* Carousel and project cards say what they want from you. */
-    html.cursor-label .cursor-ring {
-      width: 76px;
-      height: 76px;
-      margin: -38px 0 0 -38px;
-      background: rgba(255, 255, 255, 0.16);
-      border-color: rgba(255, 255, 255, 0.95);
-    }
-    html.cursor-label .cursor-ring span { opacity: 1; transform: scale(1); }
-    html.cursor-label .cursor-dot { width: 0; height: 0; margin: 0; }
-
-    /* Pressed. */
-    html.cursor-down .cursor-ring { transform: scale(0.82); }
-
-    /* Over a text field the native caret matters more than the effect. */
-    html.cursor-text .cursor-dot,
-    html.cursor-text .cursor-ring { opacity: 0; }
+    /* Over a text field the real caret matters more than the effect. */
+    html.cursor-text .cursor-lead,
+    html.cursor-text .cursor-trail,
+    html.cursor-text .cursor-tag { opacity: 0; }
     html.cursor-text, html.cursor-text * { cursor: auto !important; }
 
-    /* Hide the system pointer only where the custom one is actually running. */
+    /* Hide the system pointer only where the comet is actually running. */
     @media (hover: hover) and (pointer: fine) {
       html.cursor-ready, html.cursor-ready * { cursor: none; }
     }
 
-    /* No mouse, or the viewer asked for less motion: nothing is rendered and
-       the native cursor is never hidden. */
+    /* No mouse, or the viewer asked for less motion: nothing renders and the
+       native cursor is never hidden. */
     @media (hover: none), (pointer: coarse) {
-      .cursor-dot, .cursor-ring { display: none; }
+      .cursor-lead, .cursor-trail, .cursor-tag { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .cursor-dot, .cursor-ring { display: none; }
+      .cursor-lead, .cursor-trail, .cursor-tag { display: none; }
     }
 
     /* Accordion transition styles */
@@ -354,10 +340,12 @@
   </head>
   <body class="antialiased text-[#111] bg-[#FAFAFA]">
 
-  <!-- Custom cursor. Inert markup: the script below only wakes it for a real
-       mouse, and it is pointer-events: none so it never blocks a click. -->
-  <div class="cursor-ring" aria-hidden="true"><span></span></div>
-  <div class="cursor-dot" aria-hidden="true"></div>
+  <!-- Comet cursor. Inert markup: the script only wakes it for a real mouse,
+       it fills .cursor-trail with nodes, and everything is pointer-events:
+       none so none of it can block a click. -->
+  <div class="cursor-trail" aria-hidden="true"></div>
+  <div class="cursor-lead" aria-hidden="true"></div>
+  <div class="cursor-tag" aria-hidden="true"></div>
 
 
     <!-- Notification Toast Container -->
@@ -1891,30 +1879,44 @@
     }
 
     /* ------------------------------------------------------------------
-       Custom cursor.
+       Comet cursor.
 
-       The dot is pinned to the pointer and the ring chases it, which is what
-       gives the movement weight. Both are written with translate3d inside a
-       single rAF loop, and the loop parks itself when the ring has caught up
-       so an idle page is not animating anything.
+       Each tail node eases toward the node in front of it, not toward the
+       pointer. Chaining them that way is what curls the tail behind the
+       direction of travel. One rAF loop writes all of them with translate3d
+       and parks itself once the last node has caught up, so an idle page is
+       not animating anything.
        ------------------------------------------------------------------ */
     (function initCursor() {
       var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
       var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (!fine || still) return;
 
-      var dot = document.querySelector('.cursor-dot');
-      var ring = document.querySelector('.cursor-ring');
-      if (!dot || !ring) return;
-      var label = ring.querySelector('span');
+      var lead = document.querySelector('.cursor-lead');
+      var trail = document.querySelector('.cursor-trail');
+      var tag = document.querySelector('.cursor-tag');
+      if (!lead || !trail || !tag) return;
       var root = document.documentElement;
 
-      var mx = window.innerWidth / 2, my = window.innerHeight / 2;
-      var rx = mx, ry = my;
-      var running = false;
+      /* Six nodes, each smaller and fainter than the one ahead of it. */
+      var COUNT = 6;
+      var nodes = [];
+      for (var i = 0; i < COUNT; i++) {
+        var el = document.createElement('i');
+        var size = 7 - i * 0.85;
+        el.style.width = size.toFixed(2) + 'px';
+        el.style.height = size.toFixed(2) + 'px';
+        el.style.marginTop = (-size / 2).toFixed(2) + 'px';
+        el.style.marginLeft = (-size / 2).toFixed(2) + 'px';
+        el.style.opacity = (0.62 - i * 0.09).toFixed(2);
+        trail.appendChild(el);
+        nodes.push({ el: el, x: 0, y: 0, ease: 0.34 - i * 0.025 });
+      }
 
-      /* What the cursor should say over a given element, or null for the
-         plain ring. Checked from the deepest element outwards. */
+      var mx = window.innerWidth / 2, my = window.innerHeight / 2;
+      var running = false, seeded = false;
+      var scale = 1, scaleGoal = 1;
+
       function labelFor(el) {
         if (el.closest('#flex-carousel-container')) return 'Drag';
         if (el.closest('#sem-media-container, [data-purpose="featured-projects"] img')) return 'View';
@@ -1927,41 +1929,53 @@
       function onMove(e) {
         mx = e.clientX;
         my = e.clientY;
-        if (!root.classList.contains('cursor-ready')) root.classList.add('cursor-ready');
+        if (!seeded) {
+          /* Drop the whole tail on the pointer the first time, or it whips in
+             from the middle of the screen on the first move. */
+          for (var i = 0; i < nodes.length; i++) { nodes[i].x = mx; nodes[i].y = my; }
+          seeded = true;
+          root.classList.add('cursor-ready');
+        }
 
         var el = e.target;
         var isText = !!(el.closest && el.closest('input[type="text"], input[type="email"], textarea'));
         root.classList.toggle('cursor-text', isText);
         if (isText) {
-          /* Clear whatever the last element set, or it is still on the root
-             when the pointer leaves the field. */
-          root.classList.remove('cursor-active', 'cursor-label');
+          root.classList.remove('cursor-active', 'cursor-tagged');
           start();
           return;
         }
 
         var text = el.closest ? labelFor(el) : null;
         if (text) {
-          if (label.textContent !== text) label.textContent = text;
-          root.classList.add('cursor-label');
+          if (tag.textContent !== text) tag.textContent = text;
+          root.classList.add('cursor-tagged');
           root.classList.remove('cursor-active');
         } else {
-          root.classList.remove('cursor-label');
+          root.classList.remove('cursor-tagged');
           root.classList.toggle('cursor-active', !!(el.closest && el.closest(INTERACTIVE)));
         }
         start();
       }
 
       function frame() {
-        /* The ring eases toward the pointer; 0.19 is loose enough to read as
-           weight without feeling laggy. */
-        rx += (mx - rx) * 0.19;
-        ry += (my - ry) * 0.19;
+        scale += (scaleGoal - scale) * 0.2;
 
-        dot.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)';
-        ring.style.transform = 'translate3d(' + rx.toFixed(2) + 'px,' + ry.toFixed(2) + 'px,0)';
+        lead.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0) scale(' + scale.toFixed(3) + ')';
+        tag.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)';
 
-        if (Math.abs(mx - rx) > 0.1 || Math.abs(my - ry) > 0.1) {
+        var px = mx, py = my, moving = false;
+        for (var i = 0; i < nodes.length; i++) {
+          var n = nodes[i];
+          n.x += (px - n.x) * n.ease;
+          n.y += (py - n.y) * n.ease;
+          n.el.style.transform = 'translate3d(' + n.x.toFixed(2) + 'px,' + n.y.toFixed(2) + 'px,0)';
+          if (Math.abs(px - n.x) > 0.1 || Math.abs(py - n.y) > 0.1) moving = true;
+          px = n.x;
+          py = n.y;
+        }
+
+        if (moving || Math.abs(scaleGoal - scale) > 0.002) {
           requestAnimationFrame(frame);
         } else {
           running = false;
@@ -1975,13 +1989,10 @@
       }
 
       document.addEventListener('mousemove', onMove, { passive: true });
-      document.addEventListener('mousedown', function () { root.classList.add('cursor-down'); }, { passive: true });
-      document.addEventListener('mouseup', function () { root.classList.remove('cursor-down'); }, { passive: true });
+      document.addEventListener('mousedown', function () { scaleGoal = 0.7; start(); }, { passive: true });
+      document.addEventListener('mouseup', function () { scaleGoal = 1; start(); }, { passive: true });
       document.addEventListener('mouseleave', function () { root.classList.remove('cursor-ready'); }, { passive: true });
-      document.addEventListener('mouseenter', function () { root.classList.add('cursor-ready'); }, { passive: true });
-
-      /* A plugged-in mouse is not a promise that it will be used. Only reveal
-         the cursor once the pointer actually moves. */
+      document.addEventListener('mouseenter', function () { if (seeded) root.classList.add('cursor-ready'); }, { passive: true });
     })();
 
     /* ------------------------------------------------------------------
