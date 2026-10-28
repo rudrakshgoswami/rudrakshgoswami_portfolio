@@ -222,6 +222,112 @@
       background-color: #f0f0f0;
     }
 
+    /* ------------------------------------------------------------------
+       Custom cursor.
+
+       mix-blend-mode: difference is doing the heavy lifting. The site runs
+       light sections against near-black ones, and a white cursor under
+       difference inverts against whatever is beneath it, so it stays visible
+       on both without any colour switching in JavaScript.
+
+       Only shown for a real mouse. Touch devices never match (hover: hover)
+       and (pointer: fine), so they keep their native behaviour untouched.
+       ------------------------------------------------------------------ */
+    .cursor-dot,
+    .cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      pointer-events: none;
+      border-radius: 9999px;
+      mix-blend-mode: difference;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      will-change: transform;
+    }
+
+    .cursor-dot {
+      width: 7px;
+      height: 7px;
+      margin: -3.5px 0 0 -3.5px;
+      background: #fff;
+      transition: opacity 0.25s ease, width 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                  height 0.22s cubic-bezier(0.16, 1, 0.3, 1), margin 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cursor-ring {
+      width: 34px;
+      height: 34px;
+      margin: -17px 0 0 -17px;
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.25s ease, width 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+                  height 0.32s cubic-bezier(0.16, 1, 0.3, 1), margin 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+                  background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .cursor-ring span {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #fff;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      white-space: nowrap;
+    }
+
+    html.cursor-ready .cursor-dot,
+    html.cursor-ready .cursor-ring { opacity: 1; }
+
+    /* Pointing at something clickable: the ring opens up, the dot gets out
+       of the way so it does not sit on top of what is being pointed at. */
+    html.cursor-active .cursor-ring {
+      width: 56px;
+      height: 56px;
+      margin: -28px 0 0 -28px;
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.9);
+    }
+    html.cursor-active .cursor-dot { width: 0; height: 0; margin: 0; }
+
+    /* Carousel and project cards say what they want from you. */
+    html.cursor-label .cursor-ring {
+      width: 76px;
+      height: 76px;
+      margin: -38px 0 0 -38px;
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.95);
+    }
+    html.cursor-label .cursor-ring span { opacity: 1; transform: scale(1); }
+    html.cursor-label .cursor-dot { width: 0; height: 0; margin: 0; }
+
+    /* Pressed. */
+    html.cursor-down .cursor-ring { transform: scale(0.82); }
+
+    /* Over a text field the native caret matters more than the effect. */
+    html.cursor-text .cursor-dot,
+    html.cursor-text .cursor-ring { opacity: 0; }
+    html.cursor-text, html.cursor-text * { cursor: auto !important; }
+
+    /* Hide the system pointer only where the custom one is actually running. */
+    @media (hover: hover) and (pointer: fine) {
+      html.cursor-ready, html.cursor-ready * { cursor: none; }
+    }
+
+    /* No mouse, or the viewer asked for less motion: nothing is rendered and
+       the native cursor is never hidden. */
+    @media (hover: none), (pointer: coarse) {
+      .cursor-dot, .cursor-ring { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cursor-dot, .cursor-ring { display: none; }
+    }
+
     /* Accordion transition styles */
     .accordion-content {
       max-height: 0;
@@ -247,6 +353,12 @@
   </style>
   </head>
   <body class="antialiased text-[#111] bg-[#FAFAFA]">
+
+  <!-- Custom cursor. Inert markup: the script below only wakes it for a real
+       mouse, and it is pointer-events: none so it never blocks a click. -->
+  <div class="cursor-ring" aria-hidden="true"><span></span></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+
 
     <!-- Notification Toast Container -->
     <div id="toast-container"
@@ -1777,6 +1889,100 @@
         });
       });
     }
+
+    /* ------------------------------------------------------------------
+       Custom cursor.
+
+       The dot is pinned to the pointer and the ring chases it, which is what
+       gives the movement weight. Both are written with translate3d inside a
+       single rAF loop, and the loop parks itself when the ring has caught up
+       so an idle page is not animating anything.
+       ------------------------------------------------------------------ */
+    (function initCursor() {
+      var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!fine || still) return;
+
+      var dot = document.querySelector('.cursor-dot');
+      var ring = document.querySelector('.cursor-ring');
+      if (!dot || !ring) return;
+      var label = ring.querySelector('span');
+      var root = document.documentElement;
+
+      var mx = window.innerWidth / 2, my = window.innerHeight / 2;
+      var rx = mx, ry = my;
+      var running = false;
+
+      /* What the cursor should say over a given element, or null for the
+         plain ring. Checked from the deepest element outwards. */
+      function labelFor(el) {
+        if (el.closest('#flex-carousel-container')) return 'Drag';
+        if (el.closest('#sem-media-container, [data-purpose="featured-projects"] img')) return 'View';
+        if (el.closest('.footer-metallic-title')) return 'Say hi';
+        return null;
+      }
+
+      var INTERACTIVE = 'a[href], button, [role="button"], input, select, textarea, label, .accordion-item, [onclick]';
+
+      function onMove(e) {
+        mx = e.clientX;
+        my = e.clientY;
+        if (!root.classList.contains('cursor-ready')) root.classList.add('cursor-ready');
+
+        var el = e.target;
+        var isText = !!(el.closest && el.closest('input[type="text"], input[type="email"], textarea'));
+        root.classList.toggle('cursor-text', isText);
+        if (isText) {
+          /* Clear whatever the last element set, or it is still on the root
+             when the pointer leaves the field. */
+          root.classList.remove('cursor-active', 'cursor-label');
+          start();
+          return;
+        }
+
+        var text = el.closest ? labelFor(el) : null;
+        if (text) {
+          if (label.textContent !== text) label.textContent = text;
+          root.classList.add('cursor-label');
+          root.classList.remove('cursor-active');
+        } else {
+          root.classList.remove('cursor-label');
+          root.classList.toggle('cursor-active', !!(el.closest && el.closest(INTERACTIVE)));
+        }
+        start();
+      }
+
+      function frame() {
+        /* The ring eases toward the pointer; 0.19 is loose enough to read as
+           weight without feeling laggy. */
+        rx += (mx - rx) * 0.19;
+        ry += (my - ry) * 0.19;
+
+        dot.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)';
+        ring.style.transform = 'translate3d(' + rx.toFixed(2) + 'px,' + ry.toFixed(2) + 'px,0)';
+
+        if (Math.abs(mx - rx) > 0.1 || Math.abs(my - ry) > 0.1) {
+          requestAnimationFrame(frame);
+        } else {
+          running = false;
+        }
+      }
+
+      function start() {
+        if (running) return;
+        running = true;
+        requestAnimationFrame(frame);
+      }
+
+      document.addEventListener('mousemove', onMove, { passive: true });
+      document.addEventListener('mousedown', function () { root.classList.add('cursor-down'); }, { passive: true });
+      document.addEventListener('mouseup', function () { root.classList.remove('cursor-down'); }, { passive: true });
+      document.addEventListener('mouseleave', function () { root.classList.remove('cursor-ready'); }, { passive: true });
+      document.addEventListener('mouseenter', function () { root.classList.add('cursor-ready'); }, { passive: true });
+
+      /* A plugged-in mouse is not a promise that it will be used. Only reveal
+         the cursor once the pointer actually moves. */
+    })();
 
     /* ------------------------------------------------------------------
        Mobile drawer
