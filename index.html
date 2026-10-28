@@ -170,11 +170,18 @@
       -webkit-text-fill-color: transparent;
     }
 
-    /* Portrait gradient mask so the bottom of the cut-out dissolves into the
-       page instead of ending on a hard horizontal crop line. */
+    /* Portrait mask. The photo is cropped tight, so the shoulders run off the
+       bottom and off both sides of the frame, and every one of those three
+       edges would otherwise show as a straight cut. Two gradients are
+       intersected: one dissolves the bottom, the other dissolves left and
+       right. The head sits in the middle 70%, so it is untouched. */
     .hero-portrait-mask {
-      mask-image: linear-gradient(to bottom, #000 66%, rgba(0,0,0,0.78) 84%, rgba(0,0,0,0.28) 95%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, #000 66%, rgba(0,0,0,0.78) 84%, rgba(0,0,0,0.28) 95%, transparent 100%);
+      --mask-bottom: linear-gradient(to bottom, #000 62%, rgba(0,0,0,0.72) 82%, rgba(0,0,0,0.22) 94%, transparent 100%);
+      --mask-sides: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.28) 5%, #000 15%, #000 85%, rgba(0,0,0,0.28) 95%, transparent 100%);
+      mask-image: var(--mask-bottom), var(--mask-sides);
+      mask-composite: intersect;
+      -webkit-mask-image: var(--mask-bottom), var(--mask-sides);
+      -webkit-mask-composite: source-in;
     }
 
     .footer-metallic-title {
@@ -213,12 +220,6 @@
       border-color: #000;
       transform: scale(1.08);
       background-color: #f0f0f0;
-    }
-
-    /* Hero portrait mask */
-    .hero-portrait-mask {
-      mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
     }
 
     /* Accordion transition styles */
@@ -433,7 +434,7 @@
               <img src="media/rudraksh-cutout.webp"
                 alt="Rudraksh Goswami, AI engineer based in Surat, India"
                 width="900" height="1200" fetchpriority="high"
-                class="hero-portrait-mask w-full h-full object-contain object-bottom select-none drop-shadow-[0_30px_60px_rgba(0,0,0,0.28)] transition-transform duration-[1400ms] ease-out hover:scale-[1.03]">
+                class="hero-portrait-mask w-full h-full object-contain object-bottom select-none drop-shadow-[0_30px_60px_rgba(0,0,0,0.28)]">
             </picture>
           </figure>
         </div>
