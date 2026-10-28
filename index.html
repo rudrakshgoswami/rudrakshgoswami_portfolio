@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Rudraksh Goswami | AI Engineer, Surat</title>
+  <meta name="description" content="AI engineer in Surat, India. I build AI agents, automation and internal AI dashboards, and handle the hosting and domains they run on. Available for freelance.">
+  <meta name="author" content="Rudraksh Goswami">
+  <link rel="canonical" href="https://rudrakshgoswami.vercel.app/">
+
+  <!-- Link preview card: this is what LinkedIn, WhatsApp and Naukri show -->
+  <meta property="og:type" content="profile">
+  <meta property="og:url" content="https://rudrakshgoswami.vercel.app/">
+  <meta property="og:title" content="Rudraksh Goswami | AI Engineer">
+  <meta property="og:description" content="Building AI agents, automation and internal AI dashboards, backed by two years shipping production systems. Available for freelance projects.">
+  <meta property="og:image" content="https://rudrakshgoswami.vercel.app/media/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Rudraksh Goswami | AI Engineer">
+  <meta name="twitter:description" content="AI agents, automation and internal AI dashboards. Surat, India.">
+  <meta name="twitter:image" content="https://rudrakshgoswami.vercel.app/media/og-card.png">
+  <meta name="theme-color" content="#FAFAFA">
+  <link rel="icon" href="media/favicon.svg" type="image/svg+xml">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Rudraksh Goswami",
+    "jobTitle": "AI Engineer",
+    "email": "mailto:rudrakshgoswami5555@gmail.com",
+    "telephone": "+91-97123-21892",
+    "url": "https://rudrakshgoswami.vercel.app/",
+    "address": { "@type": "PostalAddress", "addressLocality": "Surat", "addressRegion": "Gujarat", "addressCountry": "IN" },
+    "worksFor": { "@type": "Organization", "name": "Vocsy Infotech" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Veer Narmad South Gujarat University" },
+    "knowsAbout": ["Artificial Intelligence", "AI Agents", "LLM APIs", "Automation", "Python", "WordPress", "WooCommerce", "Shopify", "JavaScript", "Web Hosting", "Domain Name System", "Cloudflare", "Server Administration", "Website Migration"],
+    "makesOffer": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI agents and automation" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Internal AI dashboards and tools" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Website and e-commerce development" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Hosting, domain setup and website migration" } }
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/in/rudrakshgoswami/",
+      "https://github.com/rudrakshgoswami"
+    ]
+  }
+  </script>
+
+  <!-- Tailwind CSS v3 with Plugins -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              black: '#0D0D0D',
+              dark: '#141414',
+              gray: '#7A7A7A',
+              light: '#F8F9FA',
+              border: '#E5E5E5'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Typography & Gradients Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="FlexCarousel.css">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #FAFAFA;
+      color: #121212;
+      overflow-x: clip;
+      selection-background-color: #000;
+      selection-color: #fff;
+    }
+
+    ::selection {
+      background: #000;
+      color: #fff;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* ============================================================
+       EXPERIENCE HORIZONTAL SPATIAL CANVAS
+       ============================================================ */
+    #exp-horizontal-stage {
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+    }
+    .exp-panel {
+      will-change: transform, opacity;
+    }
+    .exp-date-bg {
+      will-change: transform;
+    }
+    @keyframes expLivingFlow {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .exp-living-flow {
+      animation: expLivingFlow 4.5s ease-in-out infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #experience {
+        height: auto !important;
+      }
+      #exp-sticky-viewport {
+        position: relative !important;
+        height: auto !important;
+        overflow: visible !important;
+      }
+      #exp-horizontal-stage {
+        flex-direction: column !important;
+        width: 100% !important;
+        transform: none !important;
+      }
+      .exp-panel {
+        width: 100% !important;
+        padding-top: 5rem !important;
+        padding-bottom: 5rem !important;
+      }
+      .exp-living-flow {
+        animation: none !important;
+      }
+    }
+
+    #project-modal {
+      transition: opacity 380ms cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 380ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #project-modal-card {
+      transition: transform 440ms cubic-bezier(0.16, 1, 0.3, 1), opacity 360ms cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+      transform: translate3d(0, 0, 0);
+    }
+
+    /* ============================================================
+       EDITORIAL HERO TITLE
+       ============================================================ */
+    /* Metallic gradient for lower text ("PORTFOLIO") only */
+    .metallic-title {
+      display: inline-block;
+      background: linear-gradient(180deg, #1A1A1A 0%, #4A4A4A 35%, #8E8E8E 60%, #BDBDBD 85%, #E5E5E5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Portrait gradient mask so the bottom of the cut-out dissolves into the
+       page instead of ending on a hard horizontal crop line. */
+    .hero-portrait-mask {
+      mask-image: linear-gradient(to bottom, #000 66%, rgba(0,0,0,0.78) 84%, rgba(0,0,0,0.28) 95%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, #000 66%, rgba(0,0,0,0.78) 84%, rgba(0,0,0,0.28) 95%, transparent 100%);
+    }
+
+    .footer-metallic-title {
+      background: linear-gradient(180deg, #FFFFFF 0%, #a8a8a8 50%, #444444 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: filter 0.3s ease;
+    }
+    .footer-metallic-title:hover {
+      filter: brightness(1.2);
+    }
+
+    .letter-spacing-widest {
+      letter-spacing: 0.18em;
+    }
+
+    .pill-btn {
+      border: 1px solid #D6D6D6;
+      border-radius: 9999px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .pill-btn:hover {
+      border-color: #000000;
+      transform: translateY(-1px);
+    }
+
+    .circle-btn {
+      border: 1px solid #D1D1D1;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, background-color 0.25s ease;
+    }
+    .circle-btn:hover {
+      border-color: #000;
+      transform: scale(1.08);
+      background-color: #f0f0f0;
+    }
+
+    /* Hero portrait mask */
+    .hero-portrait-mask {
+      mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+    }
+
+    /* Accordion transition styles */
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, margin 0.3s ease;
+      opacity: 0;
+    }
+    .accordion-item.active .accordion-content {
+      max-height: 250px;
+      opacity: 1;
+      margin-top: 1rem;
+    }
+
+    /* Toast animation */
+    .toast-enter {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    .toast-active {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="antialiased text-[#111] bg-[#FAFAFA]">
+
+  <!-- Notification Toast Container -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- BEGIN: Navigation Header -->
+  <header class="relative z-40 bg-[#FAFAFA] transition-all duration-300 w-full pt-6 pb-4 px-6 md:px-14 max-w-[1400px] mx-auto flex items-center justify-between" data-purpose="site-navigation">
+    <!-- Brand Wordmark -->
+    <a class="group font-extrabold text-xl tracking-tight text-black flex items-center" href="#home">
+      <span>RUDRAKSH</span>
+      <span class="inline-block w-2 h-2 bg-black rounded-full ml-1 transition-transform group-hover:scale-150 duration-200"></span>
+    </a>
+
+    <!-- Center Navigation Links (Pill with no unwanted wrapping) -->
+    <nav class="hidden md:flex items-center gap-1 p-1 bg-white/95 border border-[#E2E2E2] rounded-full shadow-sm text-xs font-semibold tracking-wider text-neutral-600">
+      <a id="nav-home" class="nav-link px-4 py-2 rounded-full border border-neutral-300 text-black hover:border-black transition whitespace-nowrap" href="#home">HOME</a>
+      <a id="nav-about" class="nav-link px-4 py-2 rounded-full border border-transparent hover:border-neutral-200 hover:text-black transition whitespace-nowrap" href="#about">ABOUT ME</a>
+      <a id="nav-experience" class="nav-link px-4 py-2 rounded-full border border-transparent hover:border-neutral-200 hover:text-black transition whitespace-nowrap" href="#experience">EXPERIENCE</a>
+      <a id="nav-projects" class="nav-link px-4 py-2 rounded-full border border-transparent hover:border-neutral-200 hover:text-black transition whitespace-nowrap" href="#projects">PROJECTS</a>
+      <a id="nav-services" class="nav-link px-4 py-2 rounded-full border border-transparent hover:border-neutral-200 hover:text-black transition whitespace-nowrap" href="#services">SERVICES</a>
+      <a id="nav-contact" class="nav-link px-4 py-2 rounded-full border border-transparent hover:border-neutral-200 hover:text-black transition whitespace-nowrap" href="#contact">CONTACT</a>
+    </nav>
+
+    <!-- Right Social & Menu Links -->
+    <div class="flex items-center gap-1.5 md:gap-2 p-1.5 bg-white/95 border border-[#E2E2E2] rounded-full shadow-sm">
+      <!-- Email -->
+      <a class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 transition text-neutral-700 hover:text-black" href="mailto:rudrakshgoswami5555@gmail.com" title="Email Rudraksh">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"></rect><path d="M3 7l9 6 9-6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </a>
+
+      <!-- LinkedIn -->
+      <a class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 transition text-neutral-700 hover:text-black" href="https://www.linkedin.com/in/rudrakshgoswami/" target="_blank" rel="noopener" title="LinkedIn">
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+      </a>
+
+      <!-- GitHub -->
+      <a class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 transition text-neutral-700 hover:text-black" href="https://github.com/rudrakshgoswami" target="_blank" rel="noopener" title="GitHub">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      </a>
+
+      <!-- Mobile Hamburger Button -->
+      <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Open Menu" class="md:hidden w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 transition text-neutral-700 ml-1">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="4" x2="20" y1="7" y2="7"></line><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="17" y2="17"></line></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div id="mobile-drawer" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 flex justify-end">
+    <div id="mobile-drawer-content" class="w-4/5 max-w-sm bg-white h-full p-8 flex flex-col justify-between transform translate-x-full transition-transform duration-300 shadow-2xl">
+      <div>
+        <div class="flex items-center justify-between pb-6 border-b border-neutral-200">
+          <span class="font-extrabold text-lg tracking-tight">RUDRAKSH•</span>
+          <button onclick="toggleMobileMenu()" class="w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-700 hover:border-black">
+            ✕
+          </button>
+        </div>
+        <nav class="flex flex-col gap-4 mt-8 text-base font-bold tracking-wider">
+          <a onclick="toggleMobileMenu()" href="#home" class="py-2 border-b border-neutral-100 hover:text-neutral-500">HOME</a>
+          <a onclick="toggleMobileMenu()" href="#about" class="py-2 border-b border-neutral-100 hover:text-neutral-500">ABOUT ME</a>
+          <a onclick="toggleMobileMenu()" href="#experience" class="py-2 border-b border-neutral-100 hover:text-neutral-500">EXPERIENCE</a>
+          <a onclick="toggleMobileMenu()" href="#projects" class="py-2 border-b border-neutral-100 hover:text-neutral-500">PROJECTS</a>
+          <a onclick="toggleMobileMenu()" href="#services" class="py-2 border-b border-neutral-100 hover:text-neutral-500">SERVICES</a>
+          <a onclick="toggleMobileMenu(); openContactModal();" href="javascript:void(0)" class="py-2 text-black hover:underline">CONTACT</a>
+        </nav>
+      </div>
+      <div class="pt-6 border-t border-neutral-200">
+        <p class="text-xs uppercase tracking-widest text-neutral-400 mb-3">RUDRAKSH GOSWAMI</p>
+        <p class="text-xs text-neutral-600">AI Engineer · Surat</p>
+      </div>
+    </div>
+  </div>
+  <!-- END: Navigation -->
+
+  <!-- BEGIN: Hero Section -->
+  <main class="relative max-w-[1400px] mx-auto px-6 md:px-14 pt-6 md:pt-12 pb-20 overflow-hidden" data-purpose="hero-section" id="home">
+    <!-- Big Title Header -->
+    <div class="text-center w-full mb-6 md:mb-10 relative z-0 select-none">
+      <h1 id="hero-title" class="text-[9.5vw] md:text-[8rem] lg:text-[9.5rem] font-extrabold uppercase leading-[0.85] tracking-tight">
+        <span class="block">
+          <span class="text-[#121212]">RUDRAKSH</span>
+        </span>
+        <span class="block">
+          <span class="metallic-title">GOSWAMI</span>
+        </span>
+      </h1>
+    </div>
+
+    <!-- Center Headshot & Symmetrical Content Grid -->
+    <div class="relative grid grid-cols-1 md:grid-cols-12 items-center mt-2 md:-mt-6">
+      
+      <!-- Left Column: Designer info & Arrow -->
+      <div class="md:col-span-3 flex flex-col items-start md:items-start pl-2 md:pl-6 order-2 md:order-1 pt-6 md:pt-0">
+        <span class="text-xs font-bold tracking-wider uppercase text-neutral-800 mb-3">AI ENGINEER · SURAT</span>
+        <a href="#services" class="inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.15em] uppercase text-neutral-500 hover:text-black transition mb-6">
+          <span class="relative flex w-1.5 h-1.5">
+            <span class="absolute inline-flex w-full h-full rounded-full bg-neutral-900 opacity-50 animate-ping"></span>
+            <span class="relative inline-flex w-1.5 h-1.5 rounded-full bg-neutral-900"></span>
+          </span>
+          Available for freelance
+        </a>
+        <a class="circle-btn w-14 h-14 md:w-16 md:h-16 border-neutral-300" href="#about" aria-label="Scroll to About Section">
+          <svg class="w-5 h-5 text-neutral-800 transform rotate-45" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Center Column: Stylized Black and White Headshot (in front of text) -->
+      <div class="md:col-span-6 flex justify-center order-1 md:order-2 relative z-10 -mt-4 md:-mt-36">
+        <figure class="hero-cutout relative w-[300px] h-[400px] md:w-[450px] md:h-[600px] m-0">
+          <!-- AVIF keeps the transparent cut-out and the rim-lit hair, at a
+               smaller size. The WebP below is the fallback. -->
+          <picture class="block w-full h-full">
+            <source srcset="media/rudraksh-cutout.avif" type="image/avif">
+            <img src="media/rudraksh-cutout.webp"
+                 alt="Rudraksh Goswami, AI engineer based in Surat, India"
+                 width="900" height="1200" fetchpriority="high"
+                 class="hero-portrait-mask w-full h-full object-contain object-bottom select-none drop-shadow-[0_30px_60px_rgba(0,0,0,0.28)] transition-transform duration-[1400ms] ease-out hover:scale-[1.03]">
+          </picture>
+        </figure>
+      </div>
+
+      <!-- Right Column: Pitch and Disciplines -->
+      <div class="md:col-span-3 flex flex-col items-start md:items-end text-left order-3 pt-6 md:pt-0 pr-2 md:pr-6 space-y-10">
+        <!-- Pitch Quote -->
+        <p class="text-[11px] md:text-xs uppercase font-medium leading-relaxed tracking-wider text-neutral-700 max-w-[220px] text-left">
+          I BUILD AI AGENTS, AUTOMATION AND INTERNAL AI TOOLS, BACKED BY TWO YEARS SHIPPING PRODUCTION SYSTEMS.
+        </p>
+
+        <!-- Service List with hover interaction -->
+        <div class="flex flex-col space-y-3 text-[11px] md:text-xs font-semibold tracking-widest text-neutral-600 uppercase">
+          <a href="#services" onclick="selectService(0)" class="hover:text-black hover:translate-x-1 md:hover:-translate-x-1 transition-all inline-flex items-center gap-1.5">
+            <span>AI AGENTS</span>
+          </a>
+          <a href="#services" onclick="selectService(1)" class="hover:text-black hover:translate-x-1 md:hover:-translate-x-1 transition-all inline-flex items-center gap-1.5">
+            <span>AUTOMATION</span>
+          </a>
+          <a href="#services" onclick="selectService(2)" class="hover:text-black hover:translate-x-1 md:hover:-translate-x-1 transition-all inline-flex items-center gap-1.5 font-bold text-black">
+            <span>AI DASHBOARDS</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+  <!-- END: Hero Section -->
+
+  <!-- BEGIN: About Section (ScrollExpandMedia Component) -->
+  <section class="relative w-full bg-[#0D0D0D] text-white" id="about" style="min-height: 200vh;">
+    <div class="sticky top-0 w-full h-[100dvh] overflow-hidden flex flex-col items-center justify-start z-10">
+      <!-- Background Ambient with dynamic opacity: 1 - scrollProgress (Previous Starry Night Castle Background) -->
+      <div id="sem-bg-img" class="absolute inset-0 z-0 h-full w-full pointer-events-none transition-opacity duration-150 ease-out" style="will-change: opacity; transform: translateZ(0);">
+        <!-- AVIF first: same picture, a third smaller. Browsers that don't
+             know AVIF fall through to the WebP on their own. -->
+        <picture class="block w-full h-full">
+          <source srcset="media/about-backdrop.avif" type="image/avif">
+          <img
+            src="media/about-backdrop.webp"
+            alt=""
+            aria-hidden="true"
+            width="1600" height="738"
+            loading="lazy" decoding="async"
+            class="w-full h-full object-cover object-center"
+          />
+        </picture>
+        <div class="absolute inset-0 bg-black/25"></div>
+      </div>
+
+      <!-- Centered Interactive Stage Container (Exact from React Component) -->
+      <div class="container mx-auto flex flex-col items-center justify-start relative z-10 w-full h-full">
+        <div class="flex flex-col items-center justify-center w-full h-[100dvh] relative">
+          
+          <!-- Expanding Media Card (Closed state: 300px x 400px, expands on scroll) -->
+          <div
+            id="sem-media-container"
+            class="absolute z-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-2xl overflow-hidden shadow-2xl transition-none bg-[#07090E]"
+            style="width: 300px; height: 400px; max-width: 95vw; max-height: 85vh; box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9); border: 1px solid rgba(255,255,255,0.35); will-change: width, height; backface-visibility: hidden;"
+          >
+            <!-- Media Image Container: fits 100% of the box without any letterboxing or cropping -->
+            <div class="relative w-full h-full overflow-hidden rounded-xl flex items-center justify-center bg-[#07090E]">
+              <!-- Crisp Base Image (GPU accelerated) -->
+              <img
+                id="sem-media-img"
+                src="media/about-feature.webp"
+                alt="Atmospheric monochrome artwork introducing the about section"
+                width="2048" height="1092"
+                class="w-full h-full object-cover rounded-xl transition-none"
+                style="transform: scale(1.02) translateZ(0); transform-origin: center; backface-visibility: hidden;"
+              />
+              <!-- Pre-blurred Layer for 120 FPS GPU-accelerated Unblur (fades out opacity smoothly on scroll) -->
+              <img
+                id="sem-media-blur"
+                src="media/about-feature.webp"
+                alt=""
+                width="2048" height="1092"
+                aria-hidden="true"
+                class="absolute inset-0 w-full h-full object-cover rounded-xl transition-none pointer-events-none"
+                style="filter: blur(18px); transform: scale(1.08) translateZ(0); transform-origin: center; opacity: 1; will-change: opacity; backface-visibility: hidden;"
+              />
+              <!-- Subtle Gradient Overlay: protects top/bottom legibility while keeping the center 100% transparent -->
+              <div id="sem-media-overlay" class="absolute inset-0 bg-gradient-to-b from-black/75 via-transparent to-black/85 rounded-xl transition-opacity duration-150 pointer-events-none"></div>
+
+              <!-- Minimal Aesthetic About Info - Perimeter Layout with Empty Center -->
+              <div
+                id="sem-media-content"
+                class="absolute inset-0 z-20 flex flex-col justify-between p-5 sm:p-7 md:p-9 pointer-events-none opacity-0 transition-all duration-300 select-none"
+              >
+                <!-- Top Perimeter: Refined Monochrome Headline -->
+                <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-white/10 pb-3">
+                  <h2 class="text-xs sm:text-sm md:text-base font-extrabold uppercase tracking-tight text-white max-w-xl">
+                    BUILDING AI AGENTS ON TOP OF TWO YEARS OF PRODUCTION DELIVERY
+                  </h2>
+                  <span class="text-[10px] font-mono tracking-wider uppercase text-neutral-400 shrink-0">
+                    SURAT, INDIA &bull; REMOTE / RELOCATE
+                  </span>
+                </div>
+
+                <!-- Center Zone: COMPLETELY OPEN & EMPTY - 100% unobscured view of artwork -->
+                <div class="flex-1 pointer-events-none min-h-[140px] md:min-h-[200px]"></div>
+
+                <!-- Bottom Perimeter: Disciplines, About Summary & Monochrome CTAs -->
+                <div class="pt-3 border-t border-white/10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                  <!-- About Me Summary & Disciplines -->
+                  <div class="max-w-xl space-y-2">
+                    <div class="flex items-center gap-2.5">
+                      <span class="text-[10px] font-bold tracking-widest uppercase text-neutral-300">STACK &amp; CRAFT</span>
+                      <div class="h-px bg-white/15 w-6"></div>
+                      <span class="text-[10px] font-mono tracking-widest uppercase text-neutral-400">AI AGENTS &bull; AUTOMATION &bull; PYTHON &bull; LLM APIS</span>
+                    </div>
+                    <p class="text-xs sm:text-[12px] font-medium leading-relaxed tracking-wider uppercase text-neutral-300">
+                      I JOINED VOCSY INFOTECH AS AN INTERN IN 2024 AND WAS MOVED TO DEVELOPER IN SIX MONTHS. I SHIPPED TWO LIVE E-COMMERCE STORES AND BUILT A NETWORK OF 50+ SITES THROUGH AN AI-ASSISTED PIPELINE AT ABOUT A DAY EACH, WHICH IS WHERE THE SHIFT STARTED. I NOW BUILD AI AGENTS, AUTOMATION WORKFLOWS AND INTERNAL AI DASHBOARDS WITH LLM APIS, PYTHON AND AGENT FRAMEWORKS. BCA GRADUATE, 8.7 CGPA.
+                    </p>
+                  </div>
+
+                  <!-- Monochrome Action Buttons -->
+                  <div class="flex items-center gap-3 shrink-0 pt-1 md:pt-0">
+                    <a href="javascript:void(0)" onclick="openContactModal()" class="pointer-events-auto px-5 py-2.5 rounded-full bg-white text-black hover:bg-neutral-200 text-xs font-bold tracking-wider uppercase transition-all duration-200 inline-flex items-center gap-2">
+                      <span>GET IN TOUCH</span>
+                      <svg class="w-3.5 h-3.5 text-black" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                    </a>
+                    <a href="#services" class="pointer-events-auto px-5 py-2.5 rounded-full border border-neutral-500 hover:border-white text-white text-xs font-bold tracking-wider uppercase transition-all duration-200">
+                      SERVICES
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Subtitles (Translate Outward) -->
+            <div class="flex flex-col items-center text-center relative z-10 mt-4 pointer-events-none">
+              <p id="sem-date" class="text-xl md:text-2xl text-neutral-300 font-semibold tracking-wider uppercase transition-none drop-shadow">
+                BACKGROUND &amp; DIRECTION
+              </p>
+              <p id="sem-scroll-prompt" class="text-neutral-400 font-medium text-xs tracking-widest uppercase transition-none mt-1 drop-shadow">
+                SCROLL TO EXPAND
+              </p>
+            </div>
+          </div>
+
+          <!-- Splitting Title Header (ABOUT translates left, ME translates right) -->
+          <div class="flex items-center justify-center text-center gap-2 sm:gap-4 w-full relative z-10 pointer-events-none flex-col" style="will-change: transform; backface-visibility: hidden;">
+            <h2 id="sem-title-first" class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white uppercase tracking-tight transition-none drop-shadow-2xl" style="will-change: transform, opacity;">
+              ABOUT
+            </h2>
+            <h2 id="sem-title-rest" class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white uppercase tracking-tight transition-none drop-shadow-2xl" style="will-change: transform, opacity;">
+              ME
+            </h2>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- END: About Section (ScrollExpandMedia Component) -->
+
+  <!-- BEGIN: Experience Section ("Where I've Been", horizontal cinematic installation) -->
+  <section
+    class="relative w-full bg-[#070709] text-white overflow-visible"
+    data-purpose="experience-section"
+    id="experience"
+    style="height: 380vh;"
+  >
+    <!-- Sticky 100vh Theater / Viewport Window -->
+    <div
+      id="exp-sticky-viewport"
+      class="sticky top-0 w-full h-[100dvh] overflow-hidden bg-[#070709] flex flex-col justify-between select-none"
+    >
+      <!-- Layer 0: Background Cinematic Ambience & Atmospheric Grid -->
+      <div class="absolute inset-0 pointer-events-none opacity-20">
+        <div class="absolute inset-0" style="background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px); background-size: 40px 40px;"></div>
+      </div>
+
+      <!-- Layer 0B: Massive Ambient Horizontal Running Tickers (Layered Depth) -->
+      <div class="absolute inset-0 flex flex-col justify-around pointer-events-none overflow-hidden opacity-[0.035]">
+        <!-- Upper Ticker (Drifting Left) -->
+        <div id="exp-ticker-top" class="whitespace-nowrap font-black uppercase text-[14vw] tracking-tighter will-change-transform leading-none">
+          AI ENGINEER &nbsp;&nbsp; AGENTS &amp; AUTOMATION &nbsp;&nbsp; AI ENGINEER &nbsp;&nbsp; AGENTS &amp; AUTOMATION &nbsp;&nbsp;
+        </div>
+        <!-- Lower Ticker (Drifting Right) -->
+        <div id="exp-ticker-bottom" class="whitespace-nowrap font-black uppercase text-[14vw] tracking-tighter will-change-transform leading-none">
+          2024 &nbsp;&nbsp; VOCSY INFOTECH &nbsp;&nbsp; 2026 &nbsp;&nbsp; AI ENGINEERING &nbsp;&nbsp; 2024 &nbsp;&nbsp; VOCSY INFOTECH &nbsp;&nbsp;
+        </div>
+      </div>
+
+      <!-- Top Minimalist Editorial HUD Bar -->
+      <header class="relative z-30 w-full px-6 md:px-14 pt-6 pb-4 flex items-center justify-between border-b border-white/[0.08] backdrop-blur-md bg-[#070709]/80">
+        <div class="flex items-center gap-4">
+          <span id="exp-hud-phase" class="text-[11px] font-semibold tracking-widest uppercase text-neutral-400">
+            FOUNDATION
+          </span>
+        </div>
+
+        <!-- Progress Tracker Bar (Top Hairline) -->
+        <div class="flex items-center gap-3">
+          <div class="w-24 sm:w-36 h-[2px] bg-white/10 rounded-full overflow-hidden">
+            <div id="exp-hud-progress" class="h-full bg-white transition-all duration-75 w-0"></div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Center: Massive Horizontal Spatial Canvas (Controlled by Vertical Scroll) -->
+      <div class="relative z-20 flex-1 w-full overflow-hidden flex items-center">
+        <div
+          id="exp-horizontal-stage"
+          class="flex items-center h-full will-change-transform transition-none"
+          style="width: 400vw;"
+        >
+          <!-- ================= INTRO ENVIRONMENT (0vw - 90vw) ================= -->
+          <div class="exp-panel flex-shrink-0 w-[95vw] md:w-[85vw] px-8 md:px-16 lg:px-24 flex flex-col justify-center">
+            <div class="max-w-3xl">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/15 bg-white/[0.04] text-[10px] font-semibold tracking-widest uppercase text-neutral-300 mb-6">
+                <span>FOUNDATION & JOURNEY</span>
+              </div>
+              <h2 class="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black uppercase tracking-tight text-white leading-[0.88] mb-8">
+                WHERE<br>I'VE BEEN
+              </h2>
+              <p class="text-base sm:text-lg md:text-xl text-neutral-300 leading-relaxed max-w-xl font-normal">
+Two years at Vocsy Infotech in Surat: intern to developer on live client work, and now into AI engineering.
+              </p>
+            </div>
+          </div>
+
+          <!-- ================= CHAPTER 01: LEARNING (90vw - 190vw) ================= -->
+          <div class="exp-panel relative flex-shrink-0 w-[105vw] md:w-[100vw] px-8 md:px-16 lg:px-24 flex flex-col justify-center">
+            <!-- Background Parallax Date Typography -->
+            <div
+              class="exp-date-bg absolute -top-8 right-12 md:right-28 text-[12vw] md:text-[14vw] font-black uppercase text-white/[0.04] tracking-tighter select-none pointer-events-none will-change-transform"
+              data-parallax-factor="0.15"
+            >
+              2024 - 2025
+            </div>
+
+            <div class="relative z-10 max-w-4xl">
+              <!-- Eyebrow & Date -->
+              <div class="flex items-center gap-4 mb-4">
+                <span class="text-xs font-semibold tracking-widest uppercase text-neutral-400">
+                  AUG 2024 - JAN 2025
+                </span>
+                <span class="h-[1px] w-12 bg-white/20"></span>
+                <span class="text-xs font-bold tracking-widest uppercase text-white">
+                  VOCSY INFOTECH · SURAT
+                </span>
+              </div>
+
+              <!-- Oversized Typographic Role Title -->
+              <h3 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight text-white leading-[0.92] mb-6">
+                WORDPRESS &amp;<br>FRONTEND INTERN
+              </h3>
+
+              <!-- Narrative Summary -->
+              <p class="text-sm sm:text-base md:text-lg text-neutral-300 leading-relaxed max-w-2xl mb-8">
+                Started on live client projects from day one, building responsive layouts and interactive features, and learning WordPress on work that was actually shipping.
+              </p>
+
+              <!-- Milestone Specifications (Hairline Grid) -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-white/10 max-w-3xl mb-8">
+                <div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">BUILT</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Responsive layouts and interactive features in HTML5, CSS3 and JavaScript</div>
+                </div>
+                <div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">LEARNED</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">WordPress theme customization and dynamic-site development</div>
+                </div>
+                <div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">OUTCOME</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Moved from intern to developer within six months</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= CHAPTER 02: FREELANCE (190vw - 290vw) ================= -->
+          <div class="exp-panel relative flex-shrink-0 w-[105vw] md:w-[100vw] px-8 md:px-16 lg:px-24 flex flex-col justify-center">
+            <!-- Background Parallax Date Typography -->
+            <div
+              class="exp-date-bg absolute -top-8 right-12 md:right-28 text-[12vw] md:text-[14vw] font-black uppercase text-white/[0.04] tracking-tighter select-none pointer-events-none will-change-transform"
+              data-parallax-factor="0.15"
+            >
+              2025 - PRESENT
+            </div>
+
+            <div class="relative z-10 max-w-4xl">
+              <!-- Eyebrow & Date -->
+              <div class="flex items-center gap-4 mb-4">
+                <span class="text-xs font-semibold tracking-widest uppercase text-neutral-400">
+                  FEB 2025 - PRESENT
+                </span>
+                <span class="h-[1px] w-12 bg-white/20"></span>
+                <span class="text-xs font-bold tracking-widest uppercase text-white">
+                  VOCSY INFOTECH · SURAT
+                </span>
+                <span class="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full border border-white/20 text-[10px] font-semibold uppercase text-neutral-300">
+                  FULL-TIME
+                </span>
+              </div>
+
+              <!-- Oversized Typographic Role Title -->
+              <h3 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight text-white leading-[0.92] mb-6">
+                WORDPRESS<br>DEVELOPER
+              </h3>
+
+              <!-- Narrative Summary -->
+              <p class="text-sm sm:text-base md:text-lg text-neutral-300 leading-relaxed max-w-2xl mb-8">
+                Building, customizing and maintaining client websites end to end: child themes, plugin configuration and e-commerce setup, plus the hosting and migration work that keeps them running.
+              </p>
+
+              <!-- Milestone Specifications (Hairline Grid) -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-white/10 max-w-3xl mb-8">
+                <div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">SHIPPED</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Two production e-commerce stores, both live today</div>
+                </div>
+                <div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">OPERATIONS</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Hosting and cPanel, site migrations, backups, MySQL and Git</div>
+                </div>
+                <div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">SCALE</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">50+ WordPress blogs launched on an AI-assisted workflow</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= CHAPTER 03: AI ENGINEERING ================= -->
+          <div class="exp-panel relative flex-shrink-0 w-[105vw] md:w-[100vw] px-8 md:px-16 lg:px-24 flex flex-col justify-center">
+            <div
+              class="exp-date-bg absolute -top-8 right-12 md:right-28 text-[12vw] md:text-[14vw] font-black uppercase text-white/[0.04] tracking-tighter select-none pointer-events-none will-change-transform"
+              data-parallax-factor="0.15"
+            >
+              2026 - NOW
+            </div>
+
+            <div class="relative z-10 max-w-4xl">
+              <div class="flex items-center gap-4 mb-4">
+                <span class="text-xs font-semibold tracking-widest uppercase text-neutral-400">
+                  2026 - PRESENT
+                </span>
+                <span class="h-[1px] w-12 bg-white/20"></span>
+                <span class="text-xs font-bold tracking-widest uppercase text-white">
+                  CURRENT FOCUS
+                </span>
+                <span class="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full border border-white/20 text-[10px] font-semibold uppercase text-neutral-300">
+                  AI
+                </span>
+              </div>
+
+              <h3 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight text-white leading-[0.92] mb-6">
+                AI<br>ENGINEER
+              </h3>
+
+              <p class="text-sm sm:text-base md:text-lg text-neutral-300 leading-relaxed max-w-2xl mb-8">
+                Building AI agents, automation workflows and internal AI dashboards, moving from delivering websites to delivering systems that do the work themselves.
+              </p>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-white/10 max-w-3xl mb-8">
+                <div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">BUILDING</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">AI agents, automation workflows, dashboards and internal modules</div>
+                </div>
+                <div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">STACK</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Claude and OpenAI APIs, Python, agent frameworks, n8n</div>
+                </div>
+                <div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">FOUNDATION</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Two years of production delivery sitting under the AI work</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Bottom Minimalist Editorial Navigation & Spatial Status Bar -->
+      <footer class="relative z-30 w-full px-6 md:px-14 py-4 flex items-center justify-between border-t border-white/[0.08] backdrop-blur-md bg-[#070709]/80">
+        <!-- Interactive Navigation Markers -->
+        <div class="flex items-center gap-2 sm:gap-4">
+          <button
+            type="button"
+            class="exp-jump-btn text-[11px] font-bold tracking-widest uppercase px-3 py-1 rounded-md border border-white/20 text-white bg-white/10 transition-all hover:bg-white/20"
+            data-target-progress="0.22"
+          >
+            INTERNSHIP
+          </button>
+          <button
+            type="button"
+            class="exp-jump-btn text-[11px] font-bold tracking-widest uppercase px-3 py-1 rounded-md border border-white/5 text-neutral-500 hover:text-white transition-all hover:border-white/20"
+            data-target-progress="0.55"
+          >
+            DEVELOPER
+          </button>
+          <button
+            type="button"
+            class="exp-jump-btn text-[11px] font-bold tracking-widest uppercase px-3 py-1 rounded-md border border-white/5 text-neutral-500 hover:text-white transition-all hover:border-white/20"
+            data-target-progress="0.88"
+          >
+            AI
+          </button>
+        </div>
+      </footer>
+    </div>
+  </section>
+  <!-- END: Experience Section -->
+
+  <!-- BEGIN: Featured Project Section -->
+  <section class="max-w-[1400px] mx-auto px-6 md:px-14 py-16" data-purpose="featured-projects" id="projects">
+    <!-- Header -->
+    <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-3">
+      <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-neutral-900">
+        SELECTED WORK
+      </h2>
+      <p class="text-[11px] font-semibold tracking-widest uppercase text-neutral-500 max-w-sm md:text-right">
+AI builds and production client work · Drag or scroll the reel · Click a card for details
+      </p>
+    </div>
+
+    <!-- Dynamic Projects Content Area with FlexCarousel -->
+    <div id="projects-content" class="w-full">
+      <div id="flex-carousel-container" class="rounded-3xl border border-neutral-200 bg-[#EFEFEF] overflow-hidden shadow-inner" style="width: 100%; height: 560px; position: relative;">
+        <!-- FlexCarousel mounts here -->
+      </div>
+    </div>
+  </section>
+  <!-- END: Featured Project Section -->
+
+  <!-- ===========================================================
+       PARKED: "LANDING PAGES" 3D drum section.
+       The original showed another developer's client landing pages.
+       To bring it back for the 50+ blog network, send 4-6 blog URLs,
+       put their screenshots in media/, list them in works-wheel.js
+       (DEFAULT_WORKS), then un-comment this block, its init script
+       near the bottom of this file, and the nav link in the header.
+       =========================================================== -->
+
+  <!-- BEGIN: Services Section -->
+  <section class="max-w-[1400px] mx-auto px-6 md:px-14 py-20" data-purpose="services-section" id="services">
+    <!-- Centered Header -->
+    <div class="text-center max-w-2xl mx-auto mb-14">
+      <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-neutral-900 mb-4">
+        WHAT I DO
+      </h2>
+      <p class="text-xs md:text-xs uppercase font-medium leading-relaxed tracking-wider text-neutral-500">
+        BUILDING AI AGENTS, AUTOMATION AND INTERNAL TOOLS THAT DO REAL WORK, PLUS THE UNGLAMOROUS ENGINEERING AROUND THEM THAT MAKES THEM SAFE TO RUN UNATTENDED.
+      </p>
+    </div>
+
+    <!-- Service Pill Rows Accordion -->
+    <div class="max-w-4xl mx-auto flex flex-col space-y-3.5">
+      
+      <!-- Item 1: UI/UX -->
+      <div id="service-0" onclick="toggleService(0)" class="accordion-item w-full flex flex-col px-6 py-4 rounded-3xl border border-neutral-300 bg-white hover:border-black transition-all cursor-pointer">
+        <div class="flex items-center justify-between">
+          <span class="item-badge w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-xs font-medium text-neutral-700">1</span>
+          <span class="item-title text-xs md:text-sm font-bold tracking-widest uppercase text-neutral-800">AI AGENTS &amp; AUTOMATION</span>
+          <div class="item-icon w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center transition-transform">
+            <svg class="w-3.5 h-3.5 text-neutral-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </div>
+        </div>
+        <div class="accordion-content">
+          <p class="text-xs text-neutral-500 leading-relaxed max-w-2xl mb-4">
+            Agents that do real work (tool use, structured output, retries and guardrails) wired into systems a business already runs. Plus no-code automation in n8n or Make where that is simply the faster answer.
+          </p>
+          <div class="flex items-center justify-between border-t border-neutral-200 pt-3">
+            <span class="text-[11px] font-mono text-neutral-400">LLM APIS · TOOL USE · AGENT FRAMEWORKS · N8N / MAKE</span>
+            <button onclick="event.stopPropagation(); bookSpecificService('AI Agent / Automation');" class="text-xs font-bold underline hover:text-neutral-600">INQUIRE ↗</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 2: WEB DESIGN -->
+      <div id="service-1" onclick="toggleService(1)" class="accordion-item w-full flex flex-col px-6 py-4 rounded-3xl border border-neutral-300 bg-white hover:border-black transition-all cursor-pointer">
+        <div class="flex items-center justify-between">
+          <span class="item-badge w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-xs font-medium text-neutral-700">2</span>
+          <span class="item-title text-xs md:text-sm font-bold tracking-widest uppercase text-neutral-800">AI DASHBOARDS &amp; INTERNAL TOOLS</span>
+          <div class="item-icon w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center transition-transform">
+            <svg class="w-3.5 h-3.5 text-neutral-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </div>
+        </div>
+        <div class="accordion-content">
+          <p class="text-xs text-neutral-500 leading-relaxed max-w-2xl mb-4">
+            Internal tools and dashboards that put a model's output somewhere a team can actually use it: review queues, monitoring, and the plumbing that turns a prompt into a dependable piece of software.
+          </p>
+          <div class="flex items-center justify-between border-t border-neutral-200 pt-3">
+            <span class="text-[11px] font-mono text-neutral-400">PYTHON · DASHBOARDS · REVIEW WORKFLOWS · MONITORING</span>
+            <button onclick="event.stopPropagation(); bookSpecificService('AI Dashboard / Internal Tool');" class="text-xs font-bold underline hover:text-neutral-600">INQUIRE ↗</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 3: LANDING PAGE DESIGN (Active by default) -->
+      <div id="service-2" onclick="toggleService(2)" class="accordion-item active w-full flex flex-col px-6 py-4 rounded-3xl bg-black text-white shadow-xl cursor-pointer transition-all transform scale-[1.01]">
+        <div class="flex items-center justify-between">
+          <span class="item-badge w-8 h-8 rounded-full border border-neutral-700 flex items-center justify-center text-xs font-medium text-neutral-300">3</span>
+          <span class="item-title text-xs md:text-sm font-bold tracking-widest uppercase text-white">AI-ASSISTED DELIVERY AT SCALE</span>
+          <div class="item-icon w-8 h-8 rounded-full border border-neutral-700 flex items-center justify-center transition-transform rotate-90">
+            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </div>
+        </div>
+        <div class="accordion-content">
+          <p class="text-xs text-neutral-300 leading-relaxed max-w-2xl mb-4">
+            Production work at volume without quality falling off. A standardized base stack, generation handled through a Claude Code workflow, every generated file reviewed before it ships, at about a day per build. 50+ sites launched this way.
+          </p>
+          <div class="flex items-center justify-between border-t border-neutral-800 pt-3">
+            <span class="text-[11px] font-mono text-neutral-400">CLAUDE CODE · STANDARD BASE STACK · REVIEWED PER BUILD · ~1 DAY EACH</span>
+            <button onclick="event.stopPropagation(); bookSpecificService('AI-Assisted Delivery');" class="text-xs font-bold underline text-white hover:text-neutral-300">INQUIRE ↗</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 4: Hosting, domains and deployment -->
+      <div id="service-3" onclick="toggleService(3)" class="accordion-item w-full flex flex-col px-6 py-4 rounded-3xl border border-neutral-300 bg-white hover:border-black transition-all cursor-pointer">
+        <div class="flex items-center justify-between">
+          <span class="item-badge w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-xs font-medium text-neutral-700">4</span>
+          <span class="item-title text-xs md:text-sm font-bold tracking-widest uppercase text-neutral-800">HOSTING, DOMAINS &amp; DEPLOYMENT</span>
+          <div class="item-icon w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center transition-transform">
+            <svg class="w-3.5 h-3.5 text-neutral-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </div>
+        </div>
+        <div class="accordion-content">
+          <p class="text-xs text-neutral-500 leading-relaxed max-w-2xl mb-4">
+            Domains bought and pointed, DNS and SSL configured, servers provisioned, sites migrated without downtime. An agent or a dashboard is worth nothing until it is actually running somewhere, so I take that part myself instead of handing it off.
+          </p>
+          <div class="flex flex-wrap items-center justify-between gap-y-2 border-t border-neutral-200 pt-3">
+            <span class="text-[11px] font-mono text-neutral-400">HOSTINGER · NAMECHEAP · CLOUDWAYS · CLOUDFLARE · DNS / SSL · MIGRATIONS</span>
+            <button onclick="event.stopPropagation(); bookSpecificService('Hosting / Server / Migration');" class="text-xs font-bold underline hover:text-neutral-600">INQUIRE ↗</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Freelance availability: the first thing a visiting client wants to know -->
+    <div class="max-w-4xl mx-auto mt-16">
+      <div class="rounded-3xl bg-black text-white px-7 py-9 md:px-10 md:py-11">
+        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-9">
+
+          <div class="md:max-w-sm">
+            <span class="inline-flex items-center gap-2.5 text-[10px] font-bold tracking-[0.18em] uppercase text-neutral-400 mb-5">
+              <span class="relative flex w-2 h-2">
+                <span class="absolute inline-flex w-full h-full rounded-full bg-white opacity-60 animate-ping"></span>
+                <span class="relative inline-flex w-2 h-2 rounded-full bg-white"></span>
+              </span>
+              Available for freelance
+            </span>
+            <h3 class="text-2xl md:text-[2.1rem] font-black uppercase tracking-tight leading-[0.95] mb-4">
+              TAKING ON<br>PROJECTS
+            </h3>
+            <p class="text-xs text-neutral-400 leading-relaxed">
+              I take on a limited number of freelance projects alongside full-time work. You get a fixed scope, a timeline, and every credential handed over at the end. Small jobs are welcome: a single landing page or a domain move is a perfectly good place to start.
+            </p>
+          </div>
+
+          <div class="md:text-right">
+            <span class="block text-[10px] font-bold tracking-[0.18em] uppercase text-neutral-500 mb-4">What I take on</span>
+            <ul class="space-y-2.5 text-xs text-neutral-200 mb-7">
+              <li>Website &amp; e-commerce builds</li>
+              <li>AI agents &amp; automation</li>
+              <li>Internal AI dashboards</li>
+              <li>Hosting, domains &amp; migrations</li>
+            </ul>
+            <button onclick="openContactModal()" class="px-7 py-3 rounded-full bg-white text-black hover:bg-neutral-200 text-xs font-bold tracking-wider uppercase transition transform hover:scale-105">
+              START A PROJECT
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!-- END: Services Section -->
+
+  <!-- BEGIN: Contact / Let's Talk Footer -->
+  <footer class="w-full bg-[#0D0D0D] text-white pt-20 pb-12 mt-12" data-purpose="footer-section" id="contact">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-14 flex flex-col items-center">
+      
+      <!-- Metallic Callout Headline -->
+      <div class="w-full text-center py-6 md:py-10">
+        <h2 class="text-[12vw] md:text-[8rem] lg:text-[10rem] font-black uppercase leading-none tracking-tight footer-metallic-title select-none cursor-pointer" onclick="openContactModal()">
+          LET'S TALK
+        </h2>
+      </div>
+
+      <!-- Action Button Pills -->
+      <!-- Direct contact details: recruiters should never have to hunt for these -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 mt-6 text-sm">
+        <a class="text-neutral-200 hover:text-white underline underline-offset-4 decoration-neutral-700 hover:decoration-white transition" href="mailto:rudrakshgoswami5555@gmail.com">
+          rudrakshgoswami5555@gmail.com
+        </a>
+        <a class="text-neutral-200 hover:text-white underline underline-offset-4 decoration-neutral-700 hover:decoration-white transition" href="tel:+919712321892">
+          +91 97123 21892
+        </a>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-3.5 mt-8 mb-20">
+        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" href="https://www.linkedin.com/in/rudrakshgoswami/" target="_blank" rel="noopener">
+          LINKEDIN
+        </a>
+        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" href="https://github.com/rudrakshgoswami" target="_blank" rel="noopener">
+          GITHUB
+        </a>
+        <!-- Drop your PDF in this folder as resume.pdf to make this live -->
+        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" href="resume.pdf" download>
+          RÉSUMÉ
+        </a>
+        <button onclick="openContactModal()" class="px-7 py-2.5 rounded-full bg-white text-black hover:bg-neutral-200 text-xs font-bold tracking-wider uppercase transition transform hover:scale-105">
+          CONTACT ME
+        </button>
+      </div>
+
+      <!-- Bottom Credits Bar -->
+      <div class="w-full pt-8 border-t border-neutral-900 flex flex-col md:flex-row items-center justify-between text-[10px] tracking-widest uppercase text-neutral-600 font-semibold gap-4">
+        <div>© <span id="footer-year">2026</span> RUDRAKSH GOSWAMI · SURAT, INDIA</div>
+        <div>AI ENGINEER · AGENTS, AUTOMATION &amp; DASHBOARDS</div>
+      </div>
+
+    </div>
+  </footer>
+  <!-- END: Contact / Let's Talk Footer -->
+
+  <!-- MODAL: Project Detail Modal -->
+  <div id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-project-title" onclick="if(event.target === this) closeProjectModal()" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md opacity-0 pointer-events-none flex items-center justify-center p-4">
+    <div id="project-modal-card" class="bg-white rounded-[32px] max-w-2xl w-full max-h-[90vh] overflow-y-auto no-scrollbar p-6 sm:p-8 md:p-9 shadow-2xl border border-neutral-100 opacity-0 scale-[0.94] translate-y-4 relative">
+      <div class="relative text-center pb-4 mb-5 border-b border-neutral-100">
+        <span id="modal-project-category" class="block text-[11px] font-bold tracking-widest uppercase text-neutral-400 mb-1">CATEGORY</span>
+        <h3 id="modal-project-title" class="text-2xl sm:text-3xl font-black uppercase text-neutral-900 tracking-tight">PROJECT TITLE</h3>
+        <button onclick="closeProjectModal()" class="absolute right-0 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-500 hover:border-black hover:text-black hover:bg-neutral-50 transition-colors" aria-label="Close modal">✕</button>
+      </div>
+      <div id="modal-project-body" class="space-y-5 text-sm text-neutral-700">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Contact Form Modal -->
+  <div id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
+    <div id="contact-modal-card" class="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto no-scrollbar p-6 md:p-8 shadow-2xl transform scale-95 transition-transform duration-300">
+      <div class="flex justify-between items-center border-b border-neutral-200 pb-4 mb-6">
+        <div>
+          <span class="text-[10px] font-bold tracking-widest uppercase text-neutral-400">START A CONVERSATION</span>
+          <h3 id="contact-modal-title" class="text-xl font-black uppercase text-neutral-900">LET'S BUILD SOMETHING</h3>
+        </div>
+        <button type="button" onclick="closeContactModal()" aria-label="Close contact form" class="w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-600 hover:border-black hover:text-black">✕</button>
+      </div>
+
+      <!-- EDIT: paste a Formspree / Web3Forms endpoint into action="" to receive
+           these as email. Until then it opens the sender's own mail app. -->
+      <!-- EDIT: paste your Web3Forms access key into data-access-key below.
+           Get one free, with no account, at https://web3forms.com: enter this
+           address and they email the key straight back. Until a real key is in
+           place the form falls back to the visitor's mail client rather than
+           firing a request that is certain to be refused.
+
+           Why not FormSubmit: it needs no key at all, but it answers in 9 to 18
+           seconds from India, which is slower than the request timeout. Any
+           visitor on an Indian connection would watch it fail. -->
+      <form id="contact-form"
+            action="https://api.web3forms.com/submit"
+            data-access-key="62383849-13cf-4899-b293-b7f63727c04b"
+            method="POST" class="space-y-4">
+        <input type="hidden" name="subject" value="New enquiry from your portfolio">
+        <input type="hidden" name="from_name" value="Portfolio contact form">
+        <!-- Honeypot. People never fill these in, bots usually do. Carries the
+             field name each of the three providers looks for, so the protection
+             survives a change of provider. -->
+        <div style="display:none" aria-hidden="true">
+          <label for="contact-company">Company (leave this empty)</label>
+          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off">
+          <input type="text" id="contact-company" name="_honey" tabindex="-1" autocomplete="off">
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+        </div>
+        <div>
+          <label for="contact-name" class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1">Your Name</label>
+          <input type="text" id="contact-name" name="name" autocomplete="name" required placeholder="Your name" class="w-full px-4 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-sm">
+        </div>
+        <div>
+          <label for="contact-email" class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1">Email Address</label>
+          <input type="email" id="contact-email" name="email" autocomplete="email" required placeholder="you@company.com" class="w-full px-4 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-sm">
+        </div>
+        <div>
+          <label for="contact-service" class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1">What do you need?</label>
+          <select id="contact-service" name="service" class="w-full px-4 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-sm bg-white">
+            <option value="AI Agent / Automation">AI Agent / Automation</option>
+            <option value="AI Dashboard / Internal Tool">AI Dashboard / Internal Tool</option>
+            <option value="AI-Assisted Delivery">AI-Assisted Delivery at Scale</option>
+            <option value="Website / E-commerce Build">Website / E-commerce Build</option>
+            <option value="Hosting / Server / Migration">Hosting / Server / Migration</option>
+            <option value="Full-time Role">A Full-time Role</option>
+            <option value="Other">Something Else</option>
+          </select>
+        </div>
+        <div>
+          <label for="contact-message" class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1">Message</label>
+          <textarea id="contact-message" name="message" rows="3" required placeholder="Tell me about the project, goals and timeline..." class="w-full px-4 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-sm"></textarea>
+        </div>
+        <button type="submit" class="w-full py-3 bg-black text-white rounded-xl text-xs font-bold tracking-widest uppercase hover:bg-neutral-800 transition disabled:opacity-60">
+          SEND MESSAGE
+        </button>
+        <p id="contact-status" role="status" aria-live="polite" class="text-xs text-neutral-500 text-center min-h-[1.2em]"></p>
+        <p class="text-[11px] text-neutral-400 text-center pt-1">
+          Or email me directly at
+          <a class="underline hover:text-black" href="mailto:rudrakshgoswami5555@gmail.com">rudrakshgoswami5555@gmail.com</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT: Comprehensive Interactivity -->
+  <script>
+    /* ==================================================================
+       Portfolio interactivity for Rudraksh Goswami
+       ================================================================== */
+
+    var CONTACT_EMAIL = 'rudrakshgoswami5555@gmail.com';
+
+    /* ------------------------------------------------------------------
+       Services accordion
+       ------------------------------------------------------------------ */
+    function toggleService(index) {
+      var items = document.querySelectorAll('.accordion-item');
+      items.forEach(function (item, i) {
+        var badge = item.querySelector('.item-badge');
+        var title = item.querySelector('.item-title');
+        var icon = item.querySelector('.item-icon');
+        var iconSvg = icon ? icon.querySelector('svg') : null;
+        var header = item.firstElementChild;
+        var open = i === index;
+
+        if (open) {
+          item.classList.add('active', 'bg-black', 'text-white', 'shadow-xl', 'scale-[1.01]');
+          item.classList.remove('bg-white', 'text-neutral-800', 'border-neutral-300');
+          badge.className = 'item-badge w-8 h-8 rounded-full border border-neutral-700 flex items-center justify-center text-xs font-medium text-neutral-300';
+          title.className = 'item-title text-xs md:text-sm font-bold tracking-widest uppercase text-white';
+          icon.className = 'item-icon w-8 h-8 rounded-full border border-neutral-700 flex items-center justify-center transition-transform rotate-90';
+          if (iconSvg) iconSvg.setAttribute('class', 'w-3.5 h-3.5 text-white');
+        } else {
+          item.classList.remove('active', 'bg-black', 'text-white', 'shadow-xl', 'scale-[1.01]');
+          item.classList.add('bg-white', 'text-neutral-800', 'border-neutral-300');
+          badge.className = 'item-badge w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-xs font-medium text-neutral-700';
+          title.className = 'item-title text-xs md:text-sm font-bold tracking-widest uppercase text-neutral-800';
+          icon.className = 'item-icon w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center transition-transform rotate-0';
+          if (iconSvg) iconSvg.setAttribute('class', 'w-3.5 h-3.5 text-neutral-700');
+        }
+        if (header) header.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    }
+
+    function selectService(index) {
+      var items = document.querySelectorAll('.accordion-item');
+      if (items && items[index]) toggleService(index);
+    }
+
+    function bookSpecificService(serviceName) {
+      openContactModal();
+      var select = document.getElementById('contact-service');
+      if (!select) return;
+      for (var i = 0; i < select.options.length; i++) {
+        if (select.options[i].value === serviceName) { select.selectedIndex = i; return; }
+      }
+      for (var k = 0; k < select.options.length; k++) {
+        if (select.options[k].text.indexOf(serviceName) !== -1) { select.selectedIndex = k; return; }
+      }
+    }
+
+    /* ------------------------------------------------------------------
+       Modal focus helpers
+       ------------------------------------------------------------------ */
+    var lastFocused = null;
+    var FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+    function isOpen(id) {
+      var m = document.getElementById(id);
+      return m && !m.classList.contains('pointer-events-none');
+    }
+
+    function trapFocus(e, container) {
+      var nodes = container.querySelectorAll(FOCUSABLE);
+      if (!nodes.length) return;
+      var first = nodes[0];
+      var last = nodes[nodes.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+
+    /* ------------------------------------------------------------------
+       Project modal, filled by the carousel
+       ------------------------------------------------------------------ */
+    function openProjectModal(data) {
+      if (!data || typeof data !== 'object') return;
+
+      var title = data.title || 'PROJECT DETAILS';
+      document.getElementById('modal-project-category').innerText = data.subtitle || data.category || 'SELECTED WORK';
+      document.getElementById('modal-project-title').innerText = title;
+
+      var body = document.getElementById('modal-project-body');
+      body.innerHTML = '';
+
+      function add(html) {
+        var wrap = document.createElement('div');
+        wrap.innerHTML = html;
+        while (wrap.firstChild) body.appendChild(wrap.firstChild);
+      }
+
+      if (data.src) {
+        var fig = document.createElement('div');
+        fig.className = 'w-full h-52 sm:h-64 rounded-2xl overflow-hidden border border-neutral-200/80 bg-neutral-100 shadow-inner';
+        var img = document.createElement('img');
+        img.src = data.src;
+        img.alt = data.alt || title;
+        img.className = 'w-full h-full object-cover object-top';
+        fig.appendChild(img);
+        body.appendChild(fig);
+      }
+      if (data.description) {
+        var p = document.createElement('p');
+        p.className = 'text-neutral-600 leading-relaxed font-normal text-sm sm:text-base text-center max-w-xl mx-auto';
+        p.textContent = data.description;
+        body.appendChild(p);
+      }
+      if (data.stats) {
+        var statBox = document.createElement('div');
+        statBox.className = 'bg-neutral-50 p-4 rounded-2xl border border-neutral-200 text-center';
+        add('');
+        var lbl = document.createElement('p');
+        lbl.className = 'text-[11px] font-bold uppercase tracking-wider text-neutral-500 mb-1';
+        lbl.textContent = 'Key Highlights';
+        var val = document.createElement('p');
+        val.className = 'text-xs text-neutral-800 font-medium';
+        val.textContent = data.stats;
+        statBox.appendChild(lbl); statBox.appendChild(val);
+        body.appendChild(statBox);
+      }
+      if (data.deliverables && data.deliverables.length) {
+        var dWrap = document.createElement('div');
+        var dH = document.createElement('h4');
+        dH.className = 'text-xs font-bold uppercase tracking-wider text-black mb-2 text-center';
+        dH.textContent = 'What I Built';
+        var ul = document.createElement('ul');
+        ul.className = 'list-disc pl-5 space-y-1 text-xs text-neutral-600 max-w-md mx-auto';
+        data.deliverables.forEach(function (d) {
+          var li = document.createElement('li'); li.textContent = d; ul.appendChild(li);
+        });
+        dWrap.appendChild(dH); dWrap.appendChild(ul);
+        body.appendChild(dWrap);
+      }
+      if (data.tools && data.tools.length) {
+        var tWrap = document.createElement('div');
+        var tH = document.createElement('h4');
+        tH.className = 'text-xs font-bold uppercase tracking-wider text-black mb-2 text-center';
+        tH.textContent = 'Stack';
+        var row = document.createElement('div');
+        row.className = 'flex flex-wrap justify-center gap-2';
+        data.tools.forEach(function (t) {
+          var chip = document.createElement('span');
+          chip.className = 'px-3 py-1 bg-neutral-100 border border-neutral-200 text-neutral-800 text-[10px] font-semibold rounded-full uppercase';
+          chip.textContent = t;
+          row.appendChild(chip);
+        });
+        tWrap.appendChild(tH); tWrap.appendChild(row);
+        body.appendChild(tWrap);
+      }
+      if (data.link) {
+        var linkWrap = document.createElement('div');
+        linkWrap.className = 'pt-2 flex justify-center items-center';
+        var a = document.createElement('a');
+        a.href = data.link;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.className = 'inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-black text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-all shadow-md hover:shadow-xl hover:scale-105 active:scale-95';
+        a.textContent = 'Visit Live Website ↗';
+        linkWrap.appendChild(a);
+        body.appendChild(linkWrap);
+      }
+
+      var modal = document.getElementById('project-modal');
+      var card = document.getElementById('project-modal-card');
+      if (!modal || !card) return;
+
+      lastFocused = document.activeElement;
+      modal.classList.remove('pointer-events-none');
+      void modal.offsetWidth;
+      requestAnimationFrame(function () {
+        modal.classList.remove('opacity-0');
+        card.classList.remove('opacity-0', 'scale-[0.94]', 'translate-y-4');
+        card.classList.add('opacity-100', 'scale-100', 'translate-y-0');
+        var close = card.querySelector('button');
+        if (close) close.focus();
+      });
+    }
+    window.openProjectModal = openProjectModal;
+
+    function closeProjectModal() {
+      var modal = document.getElementById('project-modal');
+      var card = document.getElementById('project-modal-card');
+      if (!modal || !card) return;
+      modal.classList.add('opacity-0');
+      card.classList.remove('opacity-100', 'scale-100', 'translate-y-0');
+      card.classList.add('opacity-0', 'scale-[0.94]', 'translate-y-4');
+      setTimeout(function () {
+        if (modal.classList.contains('opacity-0')) modal.classList.add('pointer-events-none');
+      }, 400);
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
+    }
+
+    /* ------------------------------------------------------------------
+       Contact modal
+       ------------------------------------------------------------------ */
+    function openContactModal() {
+      var modal = document.getElementById('contact-modal');
+      var card = document.getElementById('contact-modal-card');
+      if (!modal || !card) return;
+      lastFocused = document.activeElement;
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      card.classList.remove('scale-95');
+      card.classList.add('scale-100');
+      var name = document.getElementById('contact-name');
+      if (name) setTimeout(function () { name.focus(); }, 60);
+    }
+
+    function closeContactModal() {
+      var modal = document.getElementById('contact-modal');
+      var card = document.getElementById('contact-modal-card');
+      if (!modal || !card) return;
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      card.classList.remove('scale-100');
+      card.classList.add('scale-95');
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
+    }
+
+    /* ------------------------------------------------------------------
+       Contact form.
+       With an endpoint in action="" it posts in the background.
+       Without one it composes mail in the sender's own client, so the
+       form is never a dead end.
+       ------------------------------------------------------------------ */
+    function initContactForm() {
+      var form = document.getElementById('contact-form');
+      var status = document.getElementById('contact-status');
+      if (!form) return;
+
+      function say(msg) { if (status) status.textContent = msg; }
+
+      /* FormSubmit only answers with JSON on its /ajax/ path. On the plain
+         path it replies with a redirect to a thank-you page, which is what we
+         want for the no-JavaScript case but not for a background send. */
+      function ajaxEndpoint(action) {
+        if (action.indexOf('formsubmit.co/') !== -1 && action.indexOf('/ajax/') === -1) {
+          return action.replace('formsubmit.co/', 'formsubmit.co/ajax/');
+        }
+        return action;
+      }
+
+      /* Every provider here answers 200 even when it has refused the message:
+         an address that was never activated, a bad key, a tripped honeypot. So
+         the body is read rather than the status code trusted. */
+      function deliveredOk(res, data) {
+        if (!res.ok) return false;
+        if (data.errors && data.errors.length) return false;            // Formspree
+        if (data.success !== undefined) {
+          return String(data.success) === 'true';                        // FormSubmit, Web3Forms
+        }
+        return true;                                                     // 200, empty body
+      }
+
+      function failureReason(res, data) {
+        if (data.message) return data.message;
+        if (data.errors && data.errors[0] && data.errors[0].message) return data.errors[0].message;
+        return 'the server answered ' + res.status;
+      }
+
+      function sendContact(action, fields) {
+        var url = ajaxEndpoint(action);
+        var controller = window.AbortController ? new AbortController() : null;
+        var timer = null;
+        var init = { method: 'POST', headers: { Accept: 'application/json' } };
+
+        if (controller) {
+          init.signal = controller.signal;
+          timer = setTimeout(function () { controller.abort(); }, 20000);
+        }
+
+        if (url.indexOf('formsubmit.co') !== -1) {
+          /* FormSubmit's ajax path wants JSON. Note that a JSON content type
+             makes the request non-simple, so the browser sends a CORS
+             preflight first and every send costs two round trips. FormData
+             below is a simple request and needs no preflight. */
+          init.headers['Content-Type'] = 'application/json';
+          init.body = JSON.stringify(fields);
+        } else {
+          var fd = new FormData();
+          Object.keys(fields).forEach(function (k) { fd.append(k, fields[k]); });
+          var key = form.getAttribute('data-access-key');
+          if (key) fd.append('access_key', key);                         // Web3Forms
+          init.body = fd;
+        }
+
+        return fetch(url, init).then(function (res) {
+          if (timer) clearTimeout(timer);
+          return res.json().catch(function () { return {}; }).then(function (data) {
+            if (!deliveredOk(res, data)) throw new Error(failureReason(res, data));
+            return data;
+          });
+        });
+      }
+
+      function mailtoFallback(name, email, service, message) {
+        var subject = encodeURIComponent('Portfolio enquiry: ' + service + ' from ' + name);
+        var bodyText = encodeURIComponent(message + '\n\n--\n' + name + '\n' + email);
+        window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + subject + '&body=' + bodyText;
+        say('Opening your email app. If nothing happens, email ' + CONTACT_EMAIL + ' directly.');
+      }
+
+      form.addEventListener('submit', function (e) {
+        var action = (form.getAttribute('action') || '').trim();
+        var name = document.getElementById('contact-name').value;
+        var email = document.getElementById('contact-email').value;
+        var service = document.getElementById('contact-service').value;
+        var message = document.getElementById('contact-message').value;
+        var button = form.querySelector('button[type="submit"]');
+        var honey = document.getElementById('contact-company');
+
+        /* A bot filled the hidden field. Say nothing useful and send nothing. */
+        if (honey && honey.value) {
+          e.preventDefault();
+          form.reset();
+          closeContactModal();
+          return;
+        }
+
+        /* Web3Forms refuses anything without a real access key, so an
+           unconfigured form should not fire a request that cannot succeed.
+           That, no endpoint at all, or a browser too old for fetch, all hand
+           off to the mail client instead of pretending the message was sent. */
+        var key = (form.getAttribute('data-access-key') || '').trim();
+        var keyMissing = action.indexOf('web3forms.com') !== -1 &&
+                         (!key || key.indexOf('PASTE_YOUR') === 0);
+        if (action.indexOf('http') !== 0 || keyMissing) {
+          e.preventDefault();
+          mailtoFallback(name, email, service, message);
+          return;
+        }
+        if (!window.fetch) return;   /* let the browser post the form itself */
+
+        e.preventDefault();
+        button.disabled = true;
+        say('Sending...');
+
+        sendContact(action, {
+          name: name,
+          email: email,
+          service: service,
+          message: message,
+          /* `subject` is what Web3Forms and Formspree read, `_subject` is
+             FormSubmit's name for the same thing. Sending both costs nothing
+             and means the subject line survives a change of provider. */
+          subject: 'Portfolio enquiry: ' + service + ' from ' + name,
+          _subject: 'Portfolio enquiry: ' + service + ' from ' + name,
+          from_name: name
+        }).then(function () {
+          form.reset();
+          say('');
+          closeContactModal();
+          showToast('Thanks ' + name + ', your message is through. I reply within a day.');
+        }).catch(function (err) {
+          /* Nothing the visitor typed is cleared, so they can copy it out. */
+          var why = (err && err.name === 'AbortError') ? 'it timed out' : (err && err.message) || 'a network error';
+          say('That did not send (' + why + '). Your message is still here: copy it and email ' + CONTACT_EMAIL + '.');
+        }).then(function () {
+          button.disabled = false;
+        });
+      });
+    }
+
+    /* ------------------------------------------------------------------
+       Mobile drawer
+       ------------------------------------------------------------------ */
+    function toggleMobileMenu() {
+      var drawer = document.getElementById('mobile-drawer');
+      var content = document.getElementById('mobile-drawer-content');
+      var btn = document.getElementById('mobile-menu-btn');
+      if (!drawer || !content) return;
+      var open = !drawer.classList.contains('pointer-events-none');
+
+      if (open) {
+        drawer.classList.add('opacity-0', 'pointer-events-none');
+        content.classList.add('translate-x-full');
+        document.body.style.overflow = '';
+        if (btn) { btn.setAttribute('aria-expanded', 'false'); btn.focus(); }
+      } else {
+        drawer.classList.remove('opacity-0', 'pointer-events-none');
+        content.classList.remove('translate-x-full');
+        document.body.style.overflow = 'hidden';
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+        var first = content.querySelector('a');
+        if (first) setTimeout(function () { first.focus(); }, 60);
+      }
+    }
+
+    /* ------------------------------------------------------------------
+       Toast
+       ------------------------------------------------------------------ */
+    function showToast(message) {
+      var container = document.getElementById('toast-container');
+      if (!container) return;
+      var toast = document.createElement('div');
+      toast.className = 'bg-black text-white px-5 py-3 rounded-full text-xs font-semibold shadow-2xl flex items-center gap-2 transform translate-y-4 opacity-0 transition-all duration-300 pointer-events-auto border border-neutral-700';
+      var dot = document.createElement('span');
+      dot.textContent = '●';
+      var text = document.createElement('span');
+      text.textContent = message;
+      toast.appendChild(dot); toast.appendChild(text);
+      container.appendChild(toast);
+      setTimeout(function () { toast.classList.remove('translate-y-4', 'opacity-0'); }, 10);
+      setTimeout(function () {
+        toast.classList.add('translate-y-4', 'opacity-0');
+        setTimeout(function () { toast.remove(); }, 300);
+      }, 3800);
+    }
+
+    /* ------------------------------------------------------------------
+       Global keyboard handling
+       ------------------------------------------------------------------ */
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        if (isOpen('project-modal')) return closeProjectModal();
+        if (isOpen('contact-modal')) return closeContactModal();
+        if (isOpen('mobile-drawer')) return toggleMobileMenu();
+      }
+      if (e.key === 'Tab') {
+        if (isOpen('project-modal')) trapFocus(e, document.getElementById('project-modal'));
+        else if (isOpen('contact-modal')) trapFocus(e, document.getElementById('contact-modal'));
+      }
+    });
+
+    /* Click the dimmed backdrop to dismiss */
+    document.addEventListener('click', function (e) {
+      if (e.target && e.target.id === 'contact-modal') closeContactModal();
+      if (e.target && e.target.id === 'mobile-drawer') toggleMobileMenu();
+    });
+
+    /* ------------------------------------------------------------------
+       Init
+       ------------------------------------------------------------------ */
+    function initApp() {
+      var year = document.getElementById('footer-year');
+      if (year) year.textContent = new Date().getFullYear();
+
+      initContactForm();
+
+      /* Make the services accordion keyboard-operable */
+      document.querySelectorAll('.accordion-item').forEach(function (item, i) {
+        var header = item.firstElementChild;
+        if (!header) return;
+        header.setAttribute('role', 'button');
+        header.setAttribute('tabindex', '0');
+        header.setAttribute('aria-expanded', item.classList.contains('active') ? 'true' : 'false');
+        header.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleService(i); }
+        });
+      });
+
+      /* Scroll-spy for the desktop nav */
+      var navLinks = {
+        home: document.getElementById('nav-home'),
+        about: document.getElementById('nav-about'),
+        experience: document.getElementById('nav-experience'),
+        projects: document.getElementById('nav-projects'),
+        services: document.getElementById('nav-services'),
+        contact: document.getElementById('nav-contact')
+      };
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var id = entry.target.getAttribute('id');
+          Object.keys(navLinks).forEach(function (k) {
+            var link = navLinks[k];
+            if (!link) return;
+            if (k === id) {
+              link.classList.add('border-neutral-300', 'text-black');
+              link.classList.remove('border-transparent', 'text-neutral-600');
+            } else {
+              link.classList.remove('border-neutral-300', 'text-black');
+              link.classList.add('border-transparent', 'text-neutral-600');
+            }
+          });
+        });
+      }, { rootMargin: '-20% 0px -60% 0px' });
+
+      document.querySelectorAll('section[id], main[id], footer[id]').forEach(function (s) {
+        observer.observe(s);
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initApp);
+    } else {
+      initApp();
+    }
+  </script>
+
+  <!-- FlexCarousel Initialization (React Bits Component Engine) -->
+  <script type="module">
+    import { initFlexCarousel, DEFAULT_ITEMS } from './flex-carousel.js';
+
+    function startCarousel() {
+      const container = document.getElementById('flex-carousel-container');
+      if (container) {
+        window.flexCarouselInstance = initFlexCarousel(container, {
+          items: DEFAULT_ITEMS,
+          preset: 'liquid',
+          intro: 'rise',
+          cardHeight: 0.5,
+          gap: 12,
+          squeeze: 0.2,
+          focusOnClick: true,
+          captions: true,
+          // Scrolling over the reel moves the reel. `wheelBudget` is how far it
+          // may be moved that way before scrolling returns to the page, which is
+          // what stops the section becoming a scroll trap: the reel loops, so it
+          // has no end of its own at which to let go.
+          captureWheel: true,
+          wheelBudget: 900,
+          onSelect: (index, item) => {
+            if (window.openProjectModal) {
+              window.openProjectModal(item);
+            }
+          }
+        });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', startCarousel);
+    } else {
+      startCarousel();
+    }
+  </script>
+
+  <!-- PARKED with the "Landing Pages" section above. Un-comment both together.
+  <script type="module">
+    import { initWorksWheel, DEFAULT_WORKS } from './works-wheel.js';
+    function startWorksWheel() {
+      const container = document.getElementById('works-wheel-container');
+      if (!container) return;
+      window.worksWheelInstance = initWorksWheel(container, {
+        items: DEFAULT_WORKS,
+        label: "Blogs",
+        action: "View",
+        onSelect: (index, item) => { if (window.openProjectModal) window.openProjectModal(item); }
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', startWorksWheel);
+    } else { startWorksWheel(); }
+  </script>
+  -->
+  <script type="module" src="./scroll-expand-media.js"></script>
+  <script type="module" src="./experience-section.js"></script>
+</body>
+</html>
