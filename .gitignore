@@ -1,7 +1,12 @@
 node_modules/
 .DS_Store
 Thumbs.db
+
+# Local tooling
 .vercel
 
-.vercel
+# Secrets. Never commit these.
 .env*
+
+# Personal notes, deliberately not published. The repo is public.
+PROJECT-EXPLAINED.md
