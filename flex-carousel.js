@@ -35,6 +35,23 @@ export const DEFAULT_ITEMS = [
      =================================================================== */
 
   {
+    src: 'media/ipl-analysis.webp',
+    alt: 'Heatmap of IPL team wins across nine seasons, 2008 to 2016',
+    title: 'IPL Data Analysis',
+    subtitle: 'Data Science \u00b7 Python \u00b7 Open Source',
+    description: 'Nine seasons of IPL cricket, 577 matches, analysed in pandas. The headline result is a negative one, which is the point: a Random Forest trained on pre-match data scores 55.7% against a 54.8% baseline, a margin smaller than its own cross-validation spread. So the model has learned nothing a one-line rule does not already know, and the code says so on every run. The analysis also overturns an assumption I had published myself, that winning the toss matters. It does not. The toss winner goes on to win 50.7% of the time, which is a coin flip.',
+    stats: '577 matches \u00b7 50 passing tests \u00b7 Model loses to a one-line baseline',
+    tools: ['Python', 'pandas', 'scikit-learn', 'Matplotlib', 'seaborn', 'pytest'],
+    deliverables: [
+      'Exploratory analysis and visualisation across nine seasons',
+      'Match prediction measured honestly against trivial baselines',
+      'Seven bugs fixed, including a demo that silently faked its prediction',
+      '50 tests covering data integrity, published figures and every script'
+    ],
+    link: 'https://github.com/rudrakshgoswami/ipl-data-analysis'
+  },
+
+  {
     src: 'media/blog-network.webp',
     alt: 'Diagram representing a pipeline that produced more than fifty sites',
     title: 'AI-Assisted Build Pipeline',
