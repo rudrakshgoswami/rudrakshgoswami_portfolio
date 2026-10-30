@@ -429,6 +429,95 @@
     .iso-hero.is-crowded .iso-stack {
       display: none;
     }
+
+    /* Services. The accordion is max-w-4xl inside a max-w-[1400px] section,
+       so there is roughly 196px of dead gutter either side of it on a wide
+       screen. One slab per service sits in each gutter, and the slab for the
+       open row goes near-black and lifts, so the drawing agrees with the
+       list. Built by iso-sections.js, which also hides both stacks when the
+       gutter is too narrow to hold one. */
+    .iso-services-rail {
+      position: relative;
+    }
+    .iso-services {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    .iso-services.is-ready {
+      opacity: 1;
+    }
+    .iso-services.is-crowded {
+      display: none;
+    }
+    /* Each slab is parked on its row's centre by iso-sections.js, which
+       writes --mark-y. The open row's slab slides toward the list instead of
+       lifting, because lifting it would break the alignment that is the whole
+       point of the drawing. */
+    .iso-svc-slab {
+      position: absolute;
+      top: 0;
+      width: clamp(96px, 9vw, 130px);
+      height: auto;
+      transform: translate(var(--mark-push, 0px), calc(var(--mark-y, 0px) - 50%));
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .iso-svc-slab--left {
+      right: calc(100% + 26px);
+    }
+    .iso-svc-slab--right {
+      left: calc(100% + 26px);
+    }
+    .iso-svc-slab--left.is-active {
+      --mark-push: 10px;
+    }
+    .iso-svc-slab--right.is-active {
+      --mark-push: -10px;
+    }
+
+    /* Footer. The page opens on an isometric floor, so it closes on one.
+       White on near-black at a tenth opacity, under LET'S TALK. */
+    .iso-footer-host {
+      position: relative;
+      overflow: hidden;
+    }
+    .iso-footer {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .iso-footer-floor {
+      position: absolute;
+      left: 50%;
+      bottom: -8%;
+      width: min(1400px, 120%);
+      height: auto;
+      margin-left: calc(min(1400px, 120%) / -2);
+    }
+    /* Everything the footer already had stays above the floor. */
+    .iso-footer-host > *:not(.iso-footer) {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Reduced motion keeps both drawings and drops the movement. The open
+       service is still marked, because that is carried by colour. */
+    .iso-services.is-static .iso-svc-slab {
+      transition: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .iso-services,
+      .iso-footer {
+        transition: none;
+      }
+      .iso-svc-slab {
+        transition: none;
+      }
+    }
   </style>
   </head>
   <body class="antialiased text-[#111] bg-[#FAFAFA]">
@@ -2280,5 +2369,6 @@
     <script type="module" src="./scroll-expand-media.js"></script>
     <script type="module" src="./experience-section.js"></script>
     <script type="module" src="./iso-hero.js"></script>
+    <script type="module" src="./iso-sections.js"></script>
   </body>
 </html>

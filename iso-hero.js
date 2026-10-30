@@ -20,124 +20,29 @@
  * cursor already listens on document, so this listens on the hero alone.
  */
 
-const COS30 = Math.cos(Math.PI / 6);
-const SIN30 = 0.5;
-
-const SVG_NS = 'http://www.w3.org/2000/svg';
-
-// Cut from the metallic-title ramp, so the slabs and the wordmark agree.
-const STONE = { top: '#E2E2E2', left: '#BBBBBB', right: '#9F9F9F', edge: '#8E8E8E' };
-const SLATE = { top: '#4A4A4A', left: '#2B2B2B', right: '#1A1A1A', edge: '#121212' };
-
-const FLOOR_W = 1400; // the hero's own max-width, so the grid lines up with it
-const FLOOR_H = 420;
-const FLOOR_COLS = 26;
-const FLOOR_ROWS = 14;
-const FLOOR_UNIT = 54;
+import {
+  STONE,
+  SLATE,
+  buildGrid,
+  el,
+  prefersReducedMotion,
+  slab,
+  svgRoot,
+} from './iso-kit.js';
 
 const CLUSTER = 44; // grid units per slab in the corner clusters
 const TITLE_GAP = 26; // clear air to leave between a cluster and the wordmark
 const LIFT = 0.95; // vertical gap between slabs, in grid units
 
-const project = (x, y, z, unit) => [
-  (x - y) * COS30 * unit,
-  (x + y) * SIN30 * unit - z * unit,
-];
-
-const el = (name, attrs) => {
-  const node = document.createElementNS(SVG_NS, name);
-  for (const key in attrs) node.setAttribute(key, attrs[key]);
-  return node;
-};
-
-const svgRoot = (w, h, cls) => {
-  const svg = el('svg', {
-    xmlns: SVG_NS,
-    viewBox: `0 0 ${w} ${h}`,
-    width: w,
-    height: h,
-    class: cls,
-    focusable: 'false',
-    'aria-hidden': 'true',
-  });
-  return svg;
-};
-
-/** One box, drawn as its three visible faces. Light sits upper-left. */
-function slab(parent, ox, oy, unit, x0, y0, x1, y1, z0, z1, pal) {
-  const p = (x, y, z) => {
-    const [sx, sy] = project(x, y, z, unit);
-    return `${(ox + sx).toFixed(2)},${(oy + sy).toFixed(2)}`;
-  };
-
-  // The faces at minimum x and minimum y are the ones turned toward us.
-  parent.appendChild(el('polygon', {
-    points: [p(x0, y0, z0), p(x1, y0, z0), p(x1, y0, z1), p(x0, y0, z1)].join(' '),
-    fill: pal.right,
-  }));
-  parent.appendChild(el('polygon', {
-    points: [p(x0, y0, z0), p(x0, y1, z0), p(x0, y1, z1), p(x0, y0, z1)].join(' '),
-    fill: pal.left,
-  }));
-  parent.appendChild(el('polygon', {
-    points: [p(x0, y0, z1), p(x1, y0, z1), p(x1, y1, z1), p(x0, y1, z1)].join(' '),
-    fill: pal.top,
-    stroke: pal.edge,
-    'stroke-width': '1',
-    'stroke-linejoin': 'round',
-  }));
-}
-
-function buildFloor() {
-  const svg = svgRoot(FLOOR_W, FLOOR_H, 'iso-layer iso-floor');
-
-  const defs = el('defs', {});
-  const grad = el('linearGradient', { id: 'isoFloorFade', x1: '0', y1: '0', x2: '0', y2: '1' });
-  grad.appendChild(el('stop', { offset: '0', 'stop-color': '#000', 'stop-opacity': '0' }));
-  grad.appendChild(el('stop', { offset: '0.45', 'stop-color': '#fff', 'stop-opacity': '0.75' }));
-  grad.appendChild(el('stop', { offset: '1', 'stop-color': '#fff', 'stop-opacity': '1' }));
-  const side = el('linearGradient', { id: 'isoSideFade', x1: '0', y1: '0', x2: '1', y2: '0' });
-  side.appendChild(el('stop', { offset: '0', 'stop-color': '#000' }));
-  side.appendChild(el('stop', { offset: '0.18', 'stop-color': '#fff' }));
-  side.appendChild(el('stop', { offset: '0.82', 'stop-color': '#fff' }));
-  side.appendChild(el('stop', { offset: '1', 'stop-color': '#000' }));
-  const mask = el('mask', { id: 'isoFloorMask' });
-  mask.appendChild(el('rect', { width: FLOOR_W, height: FLOOR_H, fill: 'url(#isoFloorFade)' }));
-  mask.appendChild(el('rect', {
-    width: FLOOR_W, height: FLOOR_H, fill: 'url(#isoSideFade)',
-    style: 'mix-blend-mode:multiply',
-  }));
-  defs.appendChild(grad);
-  defs.appendChild(side);
-  defs.appendChild(mask);
-  svg.appendChild(defs);
-
-  const group = el('g', {
-    mask: 'url(#isoFloorMask)',
-    stroke: '#121212',
-    'stroke-width': '1',
-    opacity: '0.13',
-    fill: 'none',
-  });
-
-  // Centre the diamond on the hero and let the mask handle the overhang.
-  const ox = FLOOR_W / 2 + ((FLOOR_ROWS - FLOOR_COLS) / 2) * COS30 * FLOOR_UNIT * -1;
-  const oy = FLOOR_H - ((FLOOR_COLS + FLOOR_ROWS) / 2) * SIN30 * FLOOR_UNIT;
-
-  const line = (ax, ay, bx, by) => {
-    const [x1, y1] = project(ax, ay, 0, FLOOR_UNIT);
-    const [x2, y2] = project(bx, by, 0, FLOOR_UNIT);
-    group.appendChild(el('line', {
-      x1: (ox + x1).toFixed(2), y1: (oy + y1).toFixed(2),
-      x2: (ox + x2).toFixed(2), y2: (oy + y2).toFixed(2),
-    }));
-  };
-  for (let i = 0; i <= FLOOR_COLS; i += 1) line(i, 0, i, FLOOR_ROWS);
-  for (let j = 0; j <= FLOOR_ROWS; j += 1) line(0, j, FLOOR_COLS, j);
-
-  svg.appendChild(group);
-  return svg;
-}
+const buildFloor = () => buildGrid({
+  id: 'isoHeroFloor',
+  cls: 'iso-layer iso-floor',
+  width: 1400, // the hero's own max-width, so the grid lines up with it
+  height: 420,
+  cols: 26,
+  rows: 14,
+  unit: 54,
+});
 
 /** A corner cluster: three slabs stacked with air between them. */
 function buildCluster(side) {
@@ -149,16 +54,12 @@ function buildCluster(side) {
 
   // Bottom two in stone, the top one near-black, so the eye lands on it.
   const levels = [
-    { z: 0, pal: STONE, depth: '3' },
-    { z: LIFT, pal: STONE, depth: '2' },
-    { z: LIFT * 2, pal: SLATE, depth: '1' },
+    { z: 0, pal: STONE },
+    { z: LIFT, pal: STONE },
+    { z: LIFT * 2, pal: SLATE },
   ];
   levels.forEach((level, index) => {
-    const group = el('g', {
-      class: 'iso-slab',
-      'data-depth': level.depth,
-      style: `--slab-index:${index}`,
-    });
+    const group = el('g', { class: 'iso-slab', style: `--slab-index:${index}` });
     slab(group, ox, oy, CLUSTER, 0, 0, 1.7, 1.7, level.z, level.z + 0.44, level.pal);
     svg.appendChild(group);
   });
@@ -169,7 +70,7 @@ function buildCluster(side) {
 export function initIsoHero(host) {
   if (!host) return null;
 
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduced = prefersReducedMotion();
 
   host.textContent = '';
   host.appendChild(buildFloor());
