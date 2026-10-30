@@ -338,9 +338,9 @@
     }
 
     /* Isometric hero backdrop. The geometry is built in iso-hero.js; this
-       only places the three layers and moves them. Parallax reads two custom
-       properties the module writes on pointer move, so a mouse move costs one
-       style write and the transforms stay on the compositor.
+       only places the two corner clusters and moves them. Parallax reads two
+       custom properties the module writes on pointer move, so a mouse move
+       costs one style write and the transforms stay on the compositor.
 
        Every layer is decoration, so the container is aria-hidden and sits
        behind the hero content. It never takes pointer events: the portrait,
@@ -364,14 +364,6 @@
         calc(var(--iso-y, 0) * var(--iso-shift, 0px) * 0.55), 0);
       transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: transform;
-    }
-    .iso-floor {
-      left: 50%;
-      bottom: -6%;
-      width: min(1400px, 118%);
-      height: auto;
-      margin-left: calc(min(1400px, 118%) / -2);
-      --iso-shift: 14px;
     }
     .iso-stack {
       top: clamp(2.5rem, 7vw, 7rem);
@@ -412,13 +404,11 @@
     }
 
     /* On a phone the hero is already tight and the corners are where the
-       title wraps to, so the clusters come out and only the floor stays. */
+       title wraps to, so the clusters come out and the hero carries no
+       backdrop at all. */
     @media (max-width: 767px) {
       .iso-stack {
         display: none;
-      }
-      .iso-floor {
-        opacity: 0.7;
       }
     }
 
