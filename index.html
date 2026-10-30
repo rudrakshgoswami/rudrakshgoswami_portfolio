@@ -336,6 +336,91 @@
       transform: translateY(0);
       opacity: 1;
     }
+
+    /* Isometric hero backdrop. The geometry is built in iso-hero.js; this
+       only places the three layers and moves them. Parallax reads two custom
+       properties the module writes on pointer move, so a mouse move costs one
+       style write and the transforms stay on the compositor.
+
+       Every layer is decoration, so the container is aria-hidden and sits
+       behind the hero content. It never takes pointer events: the portrait,
+       the nav and the arrow button all have to stay clickable through it. */
+    .iso-hero {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 1.1s ease;
+    }
+    .iso-hero.is-ready {
+      opacity: 1;
+    }
+    .iso-layer {
+      position: absolute;
+      transform: translate3d(
+        calc(var(--iso-x, 0) * var(--iso-shift, 0px)),
+        calc(var(--iso-y, 0) * var(--iso-shift, 0px) * 0.55), 0);
+      transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+    }
+    .iso-floor {
+      left: 50%;
+      bottom: -6%;
+      width: min(1400px, 118%);
+      height: auto;
+      margin-left: calc(min(1400px, 118%) / -2);
+      --iso-shift: 14px;
+    }
+    .iso-stack {
+      top: clamp(2.5rem, 7vw, 7rem);
+      width: clamp(120px, 15vw, 230px);
+      height: auto;
+      --iso-shift: 30px;
+    }
+    .iso-stack--left {
+      left: clamp(-1.5rem, 1vw, 2rem);
+    }
+    .iso-stack--right {
+      right: clamp(-1.5rem, 1vw, 2rem);
+      --iso-shift: -30px;
+    }
+
+    /* The slabs separate as the pointer moves, which is what sells them as
+       three objects with air between them rather than one flat drawing. */
+    .iso-slab {
+      transform: translateY(calc(var(--iso-y, 0) * var(--slab-index) * -3px));
+      transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Reduced motion keeps the drawing and drops every bit of movement. */
+    .iso-hero.is-static .iso-layer,
+    .iso-hero.is-static .iso-slab {
+      transform: none;
+      transition: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .iso-hero {
+        transition: none;
+      }
+      .iso-layer,
+      .iso-slab {
+        transform: none !important;
+        transition: none;
+      }
+    }
+
+    /* On a phone the hero is already tight and the corners are where the
+       title wraps to, so the clusters come out and only the floor stays. */
+    @media (max-width: 767px) {
+      .iso-stack {
+        display: none;
+      }
+      .iso-floor {
+        opacity: 0.7;
+      }
+    }
   </style>
   </head>
   <body class="antialiased text-[#111] bg-[#FAFAFA]">
@@ -478,6 +563,11 @@
     <main
       class="relative max-w-[1400px] mx-auto px-6 md:px-14 pt-6 md:pt-12 pb-20 overflow-hidden"
       data-purpose="hero-section" id="home">
+      <!-- Isometric backdrop. Decoration only, so it is hidden from
+           assistive tech and never takes a pointer event. Drawn by
+           iso-hero.js; empty until that module runs. -->
+      <div id="iso-hero" class="iso-hero" aria-hidden="true"></div>
+
       <!-- Big Title Header -->
       <div class="text-center w-full mb-6 md:mb-10 relative z-0 select-none">
         <h1 id="hero-title"
@@ -2181,5 +2271,6 @@
   -->
     <script type="module" src="./scroll-expand-media.js"></script>
     <script type="module" src="./experience-section.js"></script>
+    <script type="module" src="./iso-hero.js"></script>
   </body>
 </html>
