@@ -36,6 +36,7 @@ const FLOOR_ROWS = 14;
 const FLOOR_UNIT = 54;
 
 const CLUSTER = 44; // grid units per slab in the corner clusters
+const TITLE_GAP = 26; // clear air to leave between a cluster and the wordmark
 const LIFT = 0.95; // vertical gap between slabs, in grid units
 
 const project = (x, y, z, unit) => [
@@ -174,10 +175,62 @@ export function initIsoHero(host) {
   host.appendChild(buildFloor());
   host.appendChild(buildCluster('left'));
   host.appendChild(buildCluster('right'));
+  // The wordmark is set in vw below 768px and in rem above it, so between
+  // about 768 and 1150 it grows wide enough to reach into the corners the
+  // clusters occupy. Rather than guess a breakpoint, measure: if either
+  // cluster comes within TITLE_GAP of the title box, both come out.
+  const title = document.getElementById('hero-title');
+  const stacks = host.querySelectorAll('.iso-stack');
+
+  // The h1 is a full-width block, so its own box says nothing about where
+  // the letterforms end. The inner spans hug the words, so measure those.
+  const titleBox = () => {
+    const words = title.querySelectorAll('span span');
+    if (!words.length) return title.getBoundingClientRect();
+    let left = Infinity;
+    let right = -Infinity;
+    words.forEach((word) => {
+      const rect = word.getBoundingClientRect();
+      if (!rect.width) return;
+      left = Math.min(left, rect.left);
+      right = Math.max(right, rect.right);
+    });
+    return Number.isFinite(left) ? { left, right } : title.getBoundingClientRect();
+  };
+
+  const fit = () => {
+    if (!title) return;
+    host.classList.remove('is-crowded');
+    const box = titleBox();
+    let crowded = false;
+    stacks.forEach((stack) => {
+      const rect = stack.getBoundingClientRect();
+      if (!rect.width) return; // already hidden by the phone breakpoint
+      const overlap = Math.min(box.right, rect.right) - Math.max(box.left, rect.left);
+      if (overlap > -TITLE_GAP) crowded = true;
+    });
+    if (crowded) host.classList.add('is-crowded');
+  };
+
+  let fitFrame = 0;
+  const onResize = () => {
+    if (fitFrame) return;
+    fitFrame = requestAnimationFrame(() => { fitFrame = 0; fit(); });
+  };
+  fit();
+  window.addEventListener('resize', onResize, { passive: true });
+  // The wordmark is set in a webfont, so its width changes once that lands.
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+
   host.classList.add('is-ready');
   if (reduced) {
     host.classList.add('is-static');
-    return { destroy() { host.textContent = ''; } };
+    return {
+      destroy() {
+        window.removeEventListener('resize', onResize);
+        host.textContent = '';
+      },
+    };
   }
 
   // Pointer parallax. The values are written as custom properties and the
@@ -221,7 +274,9 @@ export function initIsoHero(host) {
     destroy() {
       hero.removeEventListener('pointermove', onMove);
       hero.removeEventListener('pointerleave', onLeave);
+      window.removeEventListener('resize', onResize);
       if (frame) cancelAnimationFrame(frame);
+      if (fitFrame) cancelAnimationFrame(fitFrame);
       host.textContent = '';
     },
   };

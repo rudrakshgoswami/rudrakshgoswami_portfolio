@@ -421,6 +421,14 @@
         opacity: 0.7;
       }
     }
+
+    /* Between roughly 768px and 1150px the wordmark is wide enough to reach
+       into the corners, and the slabs end up sitting inside the letterforms.
+       iso-hero.js measures that collision and sets this, which is steadier
+       than picking a breakpoint by eye. */
+    .iso-hero.is-crowded .iso-stack {
+      display: none;
+    }
   </style>
   </head>
   <body class="antialiased text-[#111] bg-[#FAFAFA]">
