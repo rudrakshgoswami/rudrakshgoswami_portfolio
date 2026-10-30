@@ -431,6 +431,13 @@
     }
 
   </style>
+
+    <!-- Vercel Web Analytics. The @vercel/analytics package expects a
+         bundler and this site has no build step, so it loads the script the
+         deployment serves itself. Same origin, no cookies, nothing to
+         consent to. The path only resolves on Vercel, so opening the site
+         from a local server logs a 404 for it and nothing else breaks. -->
+    <script defer src="/_vercel/insights/script.js"></script>
   </head>
   <body class="antialiased text-[#111] bg-[#FAFAFA]">
 
