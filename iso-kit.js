@@ -25,9 +25,6 @@ export const SVG_NS = 'http://www.w3.org/2000/svg';
 export const STONE = { top: '#E2E2E2', left: '#BBBBBB', right: '#9F9F9F', edge: '#8E8E8E' };
 export const SLATE = { top: '#4A4A4A', left: '#2B2B2B', right: '#1A1A1A', edge: '#121212' };
 
-// For the dark sections, where the same objects have to read against #0D0D0D.
-export const CHALK = { top: '#2E2E2E', left: '#1E1E1E', right: '#161616', edge: '#4A4A4A' };
-
 export const project = (x, y, z, unit) => [
   (x - y) * COS30 * unit,
   (x + y) * SIN30 * unit - z * unit,
@@ -49,11 +46,7 @@ export const svgRoot = (w, h, cls) => el('svg', {
   'aria-hidden': 'true',
 });
 
-/**
- * One box, drawn as its three visible faces, appended to `parent`.
- * Returns the three polygons in paint order so a caller can recolour them
- * later without rebuilding the geometry.
- */
+/** One box, drawn as its three visible faces, appended to `parent`. */
 export function slab(parent, ox, oy, unit, x0, y0, x1, y1, z0, z1, pal) {
   const p = (x, y, z) => {
     const [sx, sy] = project(x, y, z, unit);
@@ -80,16 +73,7 @@ export function slab(parent, ox, oy, unit, x0, y0, x1, y1, z0, z1, pal) {
   parent.appendChild(right);
   parent.appendChild(left);
   parent.appendChild(top);
-  return { right, left, top };
 }
-
-/** Repaint a slab returned by slab() in a different palette. */
-export const repaint = (faces, pal) => {
-  faces.right.setAttribute('fill', pal.right);
-  faces.left.setAttribute('fill', pal.left);
-  faces.top.setAttribute('fill', pal.top);
-  faces.top.setAttribute('stroke', pal.edge);
-};
 
 /**
  * A receding isometric floor, masked so it dissolves upward and at both
