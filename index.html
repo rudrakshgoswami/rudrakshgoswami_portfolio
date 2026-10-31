@@ -337,6 +337,23 @@
       opacity: 1;
     }
 
+
+    /* Below 360px the wordmark and the icon pill together measure more
+       than the 24px gutters leave room for, and the GitHub icon falls off
+       the right edge. body has overflow-x: clip, so it is clipped rather
+       than scrollable, which makes it easy to miss. Narrow the gutter and
+       the wordmark for that band only; the header and the hero share the
+       change so their left edges stay in line. */
+    @media (max-width: 359px) {
+      header[data-purpose="site-navigation"],
+      main[data-purpose="hero-section"] {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      header[data-purpose="site-navigation"] > a[href="#home"] {
+        font-size: 1.125rem;
+      }
+    }
   </style>
 
     <!-- Vercel Web Analytics. The @vercel/analytics package expects a
@@ -505,42 +522,66 @@
         </h1>
       </div>
 
-      <!-- Center Headshot & Symmetrical Content Grid -->
+      <!-- Center Headshot & Symmetrical Content Grid.
+
+           Three arrangements, not two:
+             < 640px  one column - portrait, then the role block, then the
+                      pitch block, all on the page's own gutter.
+             640px+   portrait on its own row with the two text blocks side
+                      by side beneath it, mirroring the desktop placement.
+             1024px+  the three columns proper, the same width the nav pill
+                      needs before it fits.
+
+           The three-column grid used to start at 768px, where it left the
+           side columns 136px wide: the pitch broke into seven lines of two
+           words and the portrait box letterboxed its own image. -->
       <div
-        class="relative grid grid-cols-1 md:grid-cols-12 items-center mt-2 md:-mt-6">
+        class="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 items-start lg:items-center gap-y-10 sm:gap-y-14 lg:gap-y-0 mt-2 lg:-mt-6">
 
         <!-- Left Column: Designer info & Arrow -->
         <div
-          class="md:col-span-3 flex flex-col items-start md:items-start pl-2 md:pl-6 order-2 md:order-1 pt-6 md:pt-0">
-          <span
-            class="text-xs font-bold tracking-wider uppercase text-neutral-800 mb-3">AI
-            ENGINEER · SURAT</span>
-          <a href="#services"
-            class="inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.15em] uppercase text-neutral-500 hover:text-black transition mb-6">
-            <span class="relative flex w-1.5 h-1.5">
+          class="sm:col-span-1 lg:col-span-3 flex flex-col items-start order-2 lg:order-1 lg:pl-6">
+          <!-- Stacked on a phone, the arrow sat between two blocks of text
+               and read as an orphan, so there it shares a row with the role
+               instead. From sm it returns to the column it has on desktop. -->
+          <div
+            class="flex w-full flex-row items-center justify-between gap-6 sm:w-auto sm:flex-col sm:items-start">
+            <div class="flex flex-col items-start">
               <span
-                class="absolute inline-flex w-full h-full rounded-full bg-neutral-900 opacity-50 animate-ping"></span>
-              <span
-                class="relative inline-flex w-1.5 h-1.5 rounded-full bg-neutral-900"></span>
-            </span>
-            Available for freelance
-          </a>
-          <a class="circle-btn w-14 h-14 md:w-16 md:h-16 border-neutral-300"
-            href="#about" aria-label="Scroll to About Section">
-            <svg class="w-5 h-5 text-neutral-800 transform rotate-45"
-              fill="none" stroke="currentColor" stroke-width="1.8"
-              viewBox="0 0 24 24">
-              <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round"
-                stroke-linejoin="round"></path>
-            </svg>
-          </a>
+                class="text-xs font-bold tracking-wider uppercase text-neutral-800 mb-2">AI
+                ENGINEER · SURAT</span>
+              <a href="#services"
+                class="inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.15em] uppercase text-neutral-500 hover:text-black transition">
+                <span class="relative flex w-1.5 h-1.5">
+                  <span
+                    class="absolute inline-flex w-full h-full rounded-full bg-neutral-900 opacity-50 animate-ping"></span>
+                  <span
+                    class="relative inline-flex w-1.5 h-1.5 rounded-full bg-neutral-900"></span>
+                </span>
+                Available for freelance
+              </a>
+            </div>
+            <a class="circle-btn w-14 h-14 lg:w-16 lg:h-16 border-neutral-300 shrink-0 sm:mt-6"
+              href="#about" aria-label="Scroll to About Section">
+              <svg class="w-5 h-5 text-neutral-800 transform rotate-45"
+                fill="none" stroke="currentColor" stroke-width="1.8"
+                viewBox="0 0 24 24">
+                <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </a>
+          </div>
         </div>
 
         <!-- Center Column: Stylized Black and White Headshot (in front of text) -->
         <div
-          class="md:col-span-6 flex justify-center order-1 md:order-2 relative z-10 -mt-4 md:-mt-36">
+          class="sm:col-span-2 lg:col-span-6 flex justify-center order-1 lg:order-2 relative z-10 -mt-4 lg:-mt-36">
+          <!-- Width is capped at 80vw so the cut-out never reaches the
+               gutters on a small phone, and the height comes from the
+               image's own 3:4 ratio rather than a second fixed number that
+               has to be kept in step with it. -->
           <figure
-            class="hero-cutout relative w-[300px] h-[400px] md:w-[450px] md:h-[600px] m-0">
+            class="hero-cutout relative m-0 w-[min(300px,80vw)] sm:w-[360px] md:w-[420px] lg:w-[450px] aspect-[3/4]">
             <!-- AVIF keeps the transparent cut-out and the rim-lit hair, at a
                smaller size. The WebP below is the fallback. -->
             <picture class="block w-full h-full">
@@ -555,27 +596,31 @@
 
         <!-- Right Column: Pitch and Disciplines -->
         <div
-          class="md:col-span-3 flex flex-col items-start md:items-end text-left order-3 pt-6 md:pt-0 pr-2 md:pr-6 space-y-10">
-          <!-- Pitch Quote -->
+          class="sm:col-span-1 lg:col-span-3 flex flex-col items-start sm:items-end text-left order-3 lg:pr-6 space-y-8 lg:space-y-10">
+          <!-- Pitch Quote. The 220px measure is what keeps this to four tidy
+               lines beside the portrait; on one column it only created a
+               ragged rag and a column of dead space. On one column it runs wider,
+               stopping at 380px so the line never grows past a comfortable
+               measure on a large phone held sideways. -->
           <p
-            class="text-[11px] md:text-xs uppercase font-medium leading-relaxed tracking-wider text-neutral-700 max-w-[220px] text-left">
+            class="text-[11px] lg:text-xs uppercase font-medium leading-relaxed tracking-wider text-neutral-700 max-w-[380px] sm:max-w-[260px] lg:max-w-[220px] text-left">
             I BUILD AI AGENTS, AUTOMATION AND INTERNAL AI TOOLS, BACKED BY TWO
             YEARS SHIPPING PRODUCTION SYSTEMS.
           </p>
 
           <!-- Service List with hover interaction -->
           <div
-            class="flex flex-col space-y-3 text-[11px] md:text-xs font-semibold tracking-widest text-neutral-600 uppercase">
+            class="flex flex-col space-y-3 text-[11px] lg:text-xs font-semibold tracking-widest text-neutral-600 uppercase">
             <a href="#services" onclick="selectService(0)"
-              class="hover:text-black hover:translate-x-1 md:hover:-translate-x-1 transition-all inline-flex items-center gap-1.5">
+              class="hover:text-black hover:translate-x-1 sm:hover:-translate-x-1 transition-all inline-flex items-center gap-1.5">
               <span>AI AGENTS</span>
             </a>
             <a href="#services" onclick="selectService(1)"
-              class="hover:text-black hover:translate-x-1 md:hover:-translate-x-1 transition-all inline-flex items-center gap-1.5">
+              class="hover:text-black hover:translate-x-1 sm:hover:-translate-x-1 transition-all inline-flex items-center gap-1.5">
               <span>AUTOMATION</span>
             </a>
             <a href="#services" onclick="selectService(2)"
-              class="hover:text-black hover:translate-x-1 md:hover:-translate-x-1 transition-all inline-flex items-center gap-1.5 font-bold text-black">
+              class="hover:text-black hover:translate-x-1 sm:hover:-translate-x-1 transition-all inline-flex items-center gap-1.5 font-bold text-black">
               <span>AI DASHBOARDS</span>
             </a>
           </div>
