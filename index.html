@@ -373,9 +373,15 @@
           class="inline-block w-2 h-2 bg-black rounded-full ml-1 transition-transform group-hover:scale-150 duration-200"></span>
       </a>
 
-      <!-- Center Navigation Links (Pill with no unwanted wrapping) -->
+      <!-- Center Navigation Links (Pill with no unwanted wrapping).
+           Shown from lg, not md: the pill measures 612px and the wordmark
+           and icon group take another 246px, so with the header's 56px
+           gutters all three only fit past about 1020px. At md they used to
+           appear and push the page 160px wider than the viewport, which
+           made the whole site scroll sideways on a portrait tablet. Below
+           lg the hamburger and the existing drawer cover navigation. -->
       <nav
-        class="hidden md:flex items-center gap-1 p-1 bg-white/95 border border-[#E2E2E2] rounded-full shadow-sm text-xs font-semibold tracking-wider text-neutral-600">
+        class="hidden lg:flex items-center gap-1 p-1 bg-white/95 border border-[#E2E2E2] rounded-full shadow-sm text-xs font-semibold tracking-wider text-neutral-600">
         <a id="nav-home"
           class="nav-link px-4 py-2 rounded-full border border-neutral-300 text-black hover:border-black transition whitespace-nowrap"
           href="#home">HOME</a>
@@ -431,7 +437,7 @@
         <!-- Mobile Hamburger Button -->
         <button id="mobile-menu-btn" onclick="toggleMobileMenu()"
           aria-label="Open Menu"
-          class="md:hidden w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 transition text-neutral-700 ml-1">
+          class="lg:hidden w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 transition text-neutral-700 ml-1">
           <svg class="w-4 h-4" fill="none" stroke="currentColor"
             stroke-width="2" viewBox="0 0 24 24"><line x1="4" x2="20" y1="7"
               y2="7"></line><line x1="4" x2="20" y1="12" y2="12"></line><line
