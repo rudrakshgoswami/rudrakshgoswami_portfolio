@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rudraksh Goswami | WordPress Developer to AI Engineer</title>
+  <meta name="robots" content="noindex">
+
+  <!--
+    SOURCE OF resume.pdf. Print this page to PDF with:
+
+      chrome --headless --disable-gpu --no-pdf-header-footer \
+             --virtual-time-budget=10000 \
+             --print-to-pdf=resume.pdf resume.html
+
+    WHY THIS FILE EXISTS
+
+    The previous PDF came out of a tool whose list items were positioned
+    elements. CSS paints positioned descendants after everything else in
+    their stacking context, so the six job bullets were written to the end
+    of the PDF's content stream even though they sat under the jobs on the
+    page. An ATS reads the stream, so it saw two jobs with no duties and an
+    Education entry trailed by six loose sentences.
+
+    Two rules keep that from coming back, and they are the reason this page
+    looks plainer in the source than it does on paper:
+
+      1. Nothing here is positioned, floated, transformed, or given a
+         z-index. Every box is in normal flow, so paint order, DOM order
+         and reading order are the same sequence.
+      2. Where a line has something flush right - a date, a project link -
+         the right-hand span opens with a non-breaking space. Extractors
+         that infer gaps from coordinates would separate the two halves
+         anyway; the one that just concatenates glyphs needs the space to
+         be a real character, or it reads "SuratFeb 2025 - Present".
+
+    Flexbox is used for those two-part lines. It does not reorder anything
+    on its own - only the `order` property does that, and nothing here sets
+    it. Keep it that way.
+
+    The design is the previous PDF's, measured out of it: A4, 14mm side
+    margins, Space Grotesk Light for the name and section labels, Inter at
+    one weight for everything else, and #4F46E5 carrying every accent.
+  -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- One weight per request. Asking a family for a weight RANGE makes the
+       CSS2 API serve the variable font, and Chrome then writes the page out
+       as Type3 fonts - glyph drawing procedures rather than embedded
+       outlines, which some resume parsers handle badly. Separate single
+       weight requests return static faces, which embed as ordinary subset
+       TrueType. Check with `pypdf` after any change here: every /Subtype
+       should read /TrueType or /Type0, never /Type3. -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #1F2937;
+      --muted: #6B7280;
+      --accent: #4F46E5;
+      --hairline: #E5E7EB;
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      background: #F3F4F6;
+    }
+
+    body {
+      background: #fff;
+      color: var(--ink);
+      font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+      font-size: 9.3pt;
+      line-height: 1.53;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* On screen the sheet is centred so the page can be checked at size;
+       in print the sheet is the page. */
+    .sheet {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      padding: 38pt 39.5pt 36pt;
+      background: #fff;
+    }
+
+    @media screen {
+      .sheet {
+        margin: 24px auto;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+      }
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .accent {
+      color: var(--accent);
+    }
+
+    /* ---- masthead ---- */
+
+    /* The old PDF asked for weights it had not loaded, so Chrome
+       synthesised them by stroking the Light face. Same look, really loaded
+       here: crisper on paper and a cleaner embed. */
+    .name {
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-weight: 500;
+      font-size: 25pt;
+      line-height: 1.12;
+      letter-spacing: -0.012em;
+    }
+
+    .title {
+      margin-top: 5.5pt;
+      font-size: 11.5pt;
+      line-height: 1.2;
+      color: var(--accent);
+    }
+
+    .title .arrow {
+      color: var(--muted);
+    }
+
+    .contact {
+      margin-top: 8.5pt;
+      font-size: 7.9pt;
+      line-height: 1.4;
+      color: var(--muted);
+    }
+
+    .contact .sep {
+      color: var(--hairline);
+      /* Real spaces around the rule so the fields never run together for a
+         parser that reads the glyphs straight through. */
+    }
+
+    /* ---- sections ---- */
+
+    .section {
+      margin-top: 16pt;
+    }
+
+    .section > h2 {
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-weight: 300;
+      font-size: 9.2pt;
+      line-height: 1.2;
+      /* The old PDF tracked these out to 0.16em, which puts 1.5pt between
+         letters at this size. Extractors that infer word breaks from glyph
+         gaps - pdfminer's default threshold is a tenth of the font size -
+         then read the headings as "W O R K   E X P E R I E N C E", and a
+         parser matching section names against a dictionary never finds
+         them. 0.09em stays under that threshold. It costs about 4pt of
+         width on a 54pt heading, which is not a difference you can see. */
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    /* The short accent rule under each section label. A plain in-flow block,
+       not a ::before on a positioned parent. */
+    .rule {
+      width: 21pt;
+      height: 2.2pt;
+      margin-top: 5.5pt;
+      background: var(--accent);
+    }
+
+    /* First block after the accent rule. Written against .rule rather
+       than :first-of-type, because .rule is itself a div and would take
+       that title from the first entry. */
+    .rule + * {
+      margin-top: 7pt;
+    }
+
+    /* ---- entries ---- */
+
+    .entry {
+      margin-top: 10pt;
+    }
+
+    .rule + .entry {
+      margin-top: 7pt;
+    }
+
+    /* Title on the left, date flush right. Flex keeps DOM order; see the
+       note at the top of the file about the leading space in .when. */
+    .entry-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12pt;
+    }
+
+    .role {
+      font-size: 10.2pt;
+      line-height: 1.35;
+      font-weight: 600;
+    }
+
+    .role .at {
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    .role .meta {
+      font-weight: 400;
+      font-size: 8.4pt;
+      color: var(--muted);
+    }
+
+    .when {
+      flex: none;
+      font-size: 8.6pt;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .when.link {
+      color: var(--accent);
+    }
+
+    .entry > p {
+      margin-top: 0.8pt;
+    }
+
+    /* ---- bullets ---- */
+
+    ul {
+      list-style: none;
+      margin-top: 0.5pt;
+    }
+
+    li {
+      padding-left: 11.9pt;
+      margin-top: 2.2pt;
+    }
+
+    li:first-child {
+      margin-top: 0;
+    }
+
+    /* The dot is an inline-block with a background, pulled back into the
+       indent by its own negative margin. An absolutely positioned ::before
+       would make every <li> a positioned element, which is the bug this
+       rebuild exists to undo. */
+    li::before {
+      content: "";
+      display: inline-block;
+      width: 3.7pt;
+      height: 3.7pt;
+      margin-left: -11.1pt;
+      margin-right: 7.4pt;
+      border-radius: 50%;
+      background: var(--accent);
+      vertical-align: 0.16em;
+    }
+
+    /* ---- skills ---- */
+
+    .skill {
+      display: flex;
+      align-items: baseline;
+      margin-top: 0.8pt;
+    }
+
+    .skill:first-child {
+      margin-top: 0;
+    }
+
+    .skill dt {
+      flex: none;
+      width: 82.5pt;
+      font-size: 8.8pt;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .skill dd {
+      flex: 1;
+    }
+
+    .sub {
+      margin-top: 0.8pt;
+      font-size: 8.8pt;
+      color: var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="sheet">
+
+    <h1 class="name">Rudraksh Goswami</h1>
+    <p class="title">WordPress Developer <span class="arrow">&#8594;</span> AI Engineer</p>
+    <p class="contact">+91 97123 21892 <span class="sep">|</span>
+      rudrakshgoswami5555@gmail.com <span class="sep">|</span> Surat, India
+      <span class="sep">|</span> <a
+        href="https://www.linkedin.com/in/rudrakshgoswami/">linkedin.com/in/rudrakshgoswami</a>
+      <span class="sep">|</span> <a
+        href="https://rudrakshgoswami.vercel.app/">rudrakshgoswami.vercel.app</a>
+    </p>
+
+    <section class="section">
+      <h2>Summary</h2>
+      <div class="rule"></div>
+      <p>WordPress developer with <span class="accent">2 years</span> of
+        production experience at Vocsy Infotech, Surat, promoted from intern to
+        developer within 6 months. Delivered live e-commerce stores for clients,
+        and used an AI-assisted workflow (Claude Code) to build and launch
+        <span class="accent">50+ blogging websites</span>. BCA graduate (VNSGU,
+        2026) with an <span class="accent">8.7 CGPA</span>. Currently working
+        with WordPress and Claude Code (AI agents and AI-assisted development),
+        and preparing for a move into
+        <span class="accent">AI/ML engineering</span>.</p>
+    </section>
+
+    <section class="section">
+      <h2>Work Experience</h2>
+      <div class="rule"></div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <p class="role">WordPress Developer <span class="at">&middot; Vocsy
+              Infotech, Surat</span></p>
+          <p class="when">&nbsp;Feb 2025 &ndash; Present</p>
+        </div>
+        <ul>
+          <li>Delivered two production e-commerce stores, both live today: a
+            WooCommerce jewellery storefront for an export client and an online
+            store for a Singapore-based food retailer.</li>
+          <li>Build, customize, and maintain WordPress client websites: child
+            themes, theme customization, plugin configuration, and e-commerce
+            setup.</li>
+          <li>Handle day-to-day agency operations for client sites: hosting and
+            cPanel management, site migrations, backups, and maintenance.</li>
+          <li>Manage source code with Git and GitHub, and site databases with
+            MySQL and phpMyAdmin.</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <p class="role">WordPress &amp; Frontend Intern <span class="at">&middot;
+              Vocsy Infotech, Surat</span></p>
+          <p class="when">&nbsp;Aug 2024 &ndash; Jan 2025</p>
+        </div>
+        <ul>
+          <li>Built responsive layouts and interactive features on live client
+            projects using HTML5, CSS3, and JavaScript.</li>
+          <li>Learned WordPress theme customization and dynamic-site development
+            on production client work.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Projects</h2>
+      <div class="rule"></div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <p class="role">Jewellery e-commerce store <span class="meta">WordPress
+              &middot; WooCommerce</span></p>
+          <p class="when link">&nbsp;<a
+              href="https://heliosexport.com/">heliosexport.com</a></p>
+        </div>
+        <p>Full WooCommerce build for a jewellery export client: product
+          catalogue, categories, and checkout, live in production.</p>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <p class="role">Food &amp; snacks e-commerce store <span class="meta">Shopify
+              &middot; Liquid</span></p>
+          <p class="when link">&nbsp;<a
+              href="https://shop.sanmarfoods.com/">shop.sanmarfoods.com</a></p>
+        </div>
+        <p>Shopify storefront for a Singapore-based food retailer, with theme
+          sections and product pages customized in Liquid.</p>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <p class="role">Blog network of 50+ websites <span class="meta">WordPress</span></p>
+        </div>
+        <p>Designed, built, and launched <strong>50+</strong> blogging websites end to end with an
+          AI-assisted workflow built on Claude Code: standardized base theme and
+          plugin stack, all generated code reviewed per site, and an average
+          build time of about a day per site.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Skills</h2>
+      <div class="rule"></div>
+      <dl>
+        <div class="skill">
+          <dt>Platforms</dt>
+          <dd>&nbsp;WordPress, Shopify, WooCommerce, Elementor</dd>
+        </div>
+        <div class="skill">
+          <dt>Languages</dt>
+          <dd>&nbsp;PHP, JavaScript, HTML5, CSS3, Shopify Liquid</dd>
+        </div>
+        <div class="skill">
+          <dt>Tools</dt>
+          <dd>&nbsp;Git, GitHub, MySQL, phpMyAdmin</dd>
+        </div>
+        <div class="skill">
+          <dt>AI workflow</dt>
+          <dd>&nbsp;AI-assisted development with Claude Code: scaffolding, code
+            generation, and debugging</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="section">
+      <h2>Education</h2>
+      <div class="rule"></div>
+      <div class="entry">
+        <div class="entry-head">
+          <p class="role">Bachelor of Computer Applications (BCA) <span class="at">&middot;
+              Veer Narmad South Gujarat University, Surat</span></p>
+          <p class="when">&nbsp;2023 &ndash; 2026</p>
+        </div>
+        <p class="sub">Graduated 2026 &middot; CGPA 8.7</p>
+      </div>
+    </section>
+
+  </main>
+</body>
+
+</html>
