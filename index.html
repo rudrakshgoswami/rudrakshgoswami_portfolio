@@ -388,14 +388,6 @@
       transform: none;
       transition-delay: 0s;
     }
-    /* Opens upward when there is not enough room inside the scrolling modal. */
-    .svc-panel.up {
-      top: auto;
-      bottom: 100%;
-      margin-top: 0;
-      margin-bottom: 0.5rem;
-      transform-origin: bottom center;
-    }
     .svc-opt {
       display: flex;
       align-items: center;
@@ -1806,17 +1798,18 @@
         items[hl].scrollIntoView({ block: 'nearest' });
       }
 
-      /* Flip upward when the panel would not fit inside the scrolling modal. */
+      /* Always opens downward. Sized from layout values rather than
+         getBoundingClientRect, because the modal card animates its scale and a
+         rect read during those 300ms would be 5% short. max-height is
+         border-box, so the border has to be added or the list scrolls by the
+         2px it costs. */
       function place() {
-        panel.classList.remove('up');
         var card = document.getElementById('contact-modal-card');
-        var box = trigger.getBoundingClientRect();
-        var topEdge = card ? card.getBoundingClientRect().top : 0;
-        var bottomEdge = card ? card.getBoundingClientRect().bottom : window.innerHeight;
-        var need = Math.min(panel.scrollHeight + 10, 330);
-        if (box.bottom + need > bottomEdge - 8 && box.top - need > topEdge + 8) {
-          panel.classList.add('up');
-        }
+        panel.style.maxHeight = 'none';
+        var border = panel.offsetHeight - panel.clientHeight;
+        var want = panel.scrollHeight + border;
+        var cap = card ? card.clientHeight - 48 : 330;
+        panel.style.maxHeight = Math.min(want, cap) + 'px';
       }
 
       function open() {
@@ -1827,6 +1820,12 @@
         panel.classList.add('open');
         trigger.setAttribute('aria-expanded', 'true');
         highlight(sel.selectedIndex < 0 ? 0 : sel.selectedIndex);
+        /* Let the browser scroll the modal the minimum needed to show the whole
+           panel. It accounts for transforms and scroll containers correctly,
+           which hand-rolled arithmetic here did not. */
+        requestAnimationFrame(function () {
+          panel.scrollIntoView({ block: 'nearest' });
+        });
       }
 
       function close(focusTrigger) {
@@ -1893,6 +1892,10 @@
 
       /* Anything else that changes the select, such as an INQUIRE button. */
       sel.addEventListener('change', paint);
+
+      /* Rows are taller on touch, so a rotation while the list is open would
+         leave the height measured for the old width. */
+      window.addEventListener('resize', function () { if (isOpen) place(); });
 
       build();
     })();
