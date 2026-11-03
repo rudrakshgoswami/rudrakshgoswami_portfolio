@@ -354,6 +354,89 @@
         font-size: 1.125rem;
       }
     }
+
+    /* ------------------------------------------------------------------
+       Contact form: custom service listbox.
+       The native <select> is kept in the DOM, clipped rather than
+       display:none, so the form still submits it and assistive tech that
+       ignores the custom widget still finds a real control.
+       ------------------------------------------------------------------ */
+    .svc-native {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .svc-panel {
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px) scale(0.985);
+      transform-origin: top center;
+      transition: opacity 0.15s ease, transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
+        visibility 0s linear 0.18s;
+    }
+    .svc-panel.open {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+      transform: none;
+      transition-delay: 0s;
+    }
+    /* Opens upward when there is not enough room inside the scrolling modal. */
+    .svc-panel.up {
+      top: auto;
+      bottom: 100%;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      transform-origin: bottom center;
+    }
+    .svc-opt {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.6rem 0.7rem;
+      border-radius: 0.6rem;
+      font-size: 0.8125rem;
+      line-height: 1.35;
+      color: #262626;
+      cursor: pointer;
+    }
+    .svc-opt:hover,
+    .svc-opt.hl {
+      background: #f5f5f5;
+    }
+    .svc-opt[aria-selected="true"] {
+      background: #000;
+      color: #fff;
+    }
+    .svc-opt[aria-selected="true"].hl {
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.22);
+    }
+    .svc-check {
+      width: 14px;
+      height: 14px;
+      flex: none;
+      opacity: 0;
+    }
+    .svc-opt[aria-selected="true"] .svc-check {
+      opacity: 1;
+    }
+    #service-trigger[aria-expanded="true"] #service-chev {
+      transform: rotate(180deg);
+    }
+    @media (hover: none) {
+      .svc-opt { padding: 0.75rem 0.7rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .svc-panel { transition: none; }
+      #service-chev { transition: none; }
+    }
   </style>
 
     <!-- Vercel Web Analytics. The @vercel/analytics package expects a
@@ -1530,11 +1613,36 @@
               class="w-full px-4 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-sm">
           </div>
           <div>
-            <label for="contact-service"
+            <label id="service-label" for="service-trigger"
               class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1">What
               do you need?</label>
-            <select id="contact-service" name="service"
-              class="w-full px-4 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-sm bg-white">
+
+            <!-- Custom listbox. The native <select> below stays in the DOM as the
+               single source of truth: the form submits it, bookSpecificService()
+               sets it, and the submit handler reads it. This only draws it. -->
+            <div class="relative" id="service-combo">
+              <button type="button" id="service-trigger" role="combobox"
+                aria-haspopup="listbox" aria-expanded="false"
+                aria-controls="service-listbox" aria-labelledby="service-label"
+                class="w-full flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl border border-neutral-300 bg-white text-left text-sm transition-colors hover:border-neutral-400 focus:outline-none focus:border-black">
+                <span id="service-value" class="truncate">AI Agent /
+                  Automation</span>
+                <svg id="service-chev"
+                  class="w-4 h-4 shrink-0 text-neutral-400 transition-transform duration-200"
+                  viewBox="0 0 16 16" fill="none" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" aria-hidden="true">
+                  <path d="m4 6 4 4 4-4" />
+                </svg>
+              </button>
+              <ul id="service-listbox" role="listbox"
+                aria-labelledby="service-label" tabindex="-1"
+                class="svc-panel absolute left-0 right-0 z-30 mt-2 p-1 rounded-xl border border-neutral-200 bg-white shadow-xl max-h-80 overflow-y-auto">
+              </ul>
+            </div>
+
+            <select id="contact-service" name="service" tabindex="-1"
+              aria-hidden="true" class="svc-native">
               <option value="AI Agent / Automation">AI Agent /
                 Automation</option>
               <option value="AI Dashboard / Internal Tool">AI Dashboard /
@@ -1620,13 +1728,174 @@
       openContactModal();
       var select = document.getElementById('contact-service');
       if (!select) return;
+      var hit = -1;
       for (var i = 0; i < select.options.length; i++) {
-        if (select.options[i].value === serviceName) { select.selectedIndex = i; return; }
+        if (select.options[i].value === serviceName) { hit = i; break; }
       }
-      for (var k = 0; k < select.options.length; k++) {
-        if (select.options[k].text.indexOf(serviceName) !== -1) { select.selectedIndex = k; return; }
+      if (hit === -1) {
+        for (var k = 0; k < select.options.length; k++) {
+          if (select.options[k].text.indexOf(serviceName) !== -1) { hit = k; break; }
+        }
       }
+      if (hit === -1) return;
+      select.selectedIndex = hit;
+      /* Setting selectedIndex fires nothing on its own, so tell the custom
+         listbox to redraw. */
+      select.dispatchEvent(new Event('change', { bubbles: true }));
     }
+
+    /* ------------------------------------------------------------------
+       Custom service listbox.
+
+       Draws the native <select> as a styled listbox and writes every choice
+       straight back to it, so the form, bookSpecificService() and the submit
+       handler all keep reading the same element they always did.
+       Implements the ARIA combobox-with-listbox keyboard contract: arrows,
+       Home, End, Enter, Escape, Tab and type-ahead.
+       ------------------------------------------------------------------ */
+    (function () {
+      var sel = document.getElementById('contact-service');
+      var combo = document.getElementById('service-combo');
+      var trigger = document.getElementById('service-trigger');
+      var panel = document.getElementById('service-listbox');
+      var valueEl = document.getElementById('service-value');
+      if (!sel || !combo || !trigger || !panel || !valueEl) return;
+
+      var CHECK = '<svg class="svc-check" viewBox="0 0 16 16" fill="none" stroke="currentColor"'
+        + ' stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+        + '<path d="m3 8.4 3.6 3.6L13 5"/></svg>';
+
+      var items = [];
+      var isOpen = false;
+      var hl = -1;
+      var typed = '';
+      var typedAt = 0;
+
+      function label(o) { return (o.text || '').replace(/\s+/g, ' ').trim(); }
+
+      function build() {
+        panel.innerHTML = '';
+        items = [];
+        for (var i = 0; i < sel.options.length; i++) {
+          var li = document.createElement('li');
+          li.className = 'svc-opt';
+          li.id = 'svc-opt-' + i;
+          li.setAttribute('role', 'option');
+          li.setAttribute('data-index', String(i));
+          li.innerHTML = CHECK + '<span>' + label(sel.options[i]) + '</span>';
+          panel.appendChild(li);
+          items.push(li);
+        }
+        paint();
+      }
+
+      function paint() {
+        var cur = sel.selectedIndex < 0 ? 0 : sel.selectedIndex;
+        valueEl.textContent = sel.options[cur] ? label(sel.options[cur]) : '';
+        for (var i = 0; i < items.length; i++) {
+          items[i].setAttribute('aria-selected', i === cur ? 'true' : 'false');
+        }
+      }
+
+      function highlight(i) {
+        if (i < 0 || i >= items.length) return;
+        if (hl > -1 && items[hl]) items[hl].classList.remove('hl');
+        hl = i;
+        items[hl].classList.add('hl');
+        trigger.setAttribute('aria-activedescendant', items[hl].id);
+        items[hl].scrollIntoView({ block: 'nearest' });
+      }
+
+      /* Flip upward when the panel would not fit inside the scrolling modal. */
+      function place() {
+        panel.classList.remove('up');
+        var card = document.getElementById('contact-modal-card');
+        var box = trigger.getBoundingClientRect();
+        var topEdge = card ? card.getBoundingClientRect().top : 0;
+        var bottomEdge = card ? card.getBoundingClientRect().bottom : window.innerHeight;
+        var need = Math.min(panel.scrollHeight + 10, 330);
+        if (box.bottom + need > bottomEdge - 8 && box.top - need > topEdge + 8) {
+          panel.classList.add('up');
+        }
+      }
+
+      function open() {
+        if (isOpen) return;
+        isOpen = true;
+        paint();
+        place();
+        panel.classList.add('open');
+        trigger.setAttribute('aria-expanded', 'true');
+        highlight(sel.selectedIndex < 0 ? 0 : sel.selectedIndex);
+      }
+
+      function close(focusTrigger) {
+        if (!isOpen) return;
+        isOpen = false;
+        panel.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+        trigger.removeAttribute('aria-activedescendant');
+        if (hl > -1 && items[hl]) items[hl].classList.remove('hl');
+        hl = -1;
+        if (focusTrigger) trigger.focus();
+      }
+
+      function choose(i) {
+        if (i < 0 || i >= sel.options.length) return;
+        sel.selectedIndex = i;
+        paint();
+        sel.dispatchEvent(new Event('change', { bubbles: true }));
+        close(true);
+      }
+
+      trigger.addEventListener('click', function () {
+        isOpen ? close(false) : open();
+      });
+
+      trigger.addEventListener('keydown', function (e) {
+        var k = e.key;
+        if (k === 'ArrowDown' || k === 'ArrowUp' || k === 'Enter' || k === ' ' || k === 'Spacebar') {
+          e.preventDefault();
+          if (!isOpen) { open(); return; }
+          if (k === 'Enter' || k === ' ' || k === 'Spacebar') { choose(hl); return; }
+          highlight(k === 'ArrowDown' ? Math.min(hl + 1, items.length - 1) : Math.max(hl - 1, 0));
+          return;
+        }
+        if (k === 'Escape') { if (isOpen) { e.preventDefault(); close(true); } return; }
+        if (k === 'Home' && isOpen) { e.preventDefault(); highlight(0); return; }
+        if (k === 'End' && isOpen) { e.preventDefault(); highlight(items.length - 1); return; }
+        if (k === 'Tab') { close(false); return; }
+
+        /* Type-ahead: jump to the first option starting with what was typed. */
+        if (k && k.length === 1 && /\S/.test(k)) {
+          var now = Date.now();
+          typed = (now - typedAt < 900) ? typed + k.toLowerCase() : k.toLowerCase();
+          typedAt = now;
+          if (!isOpen) open();
+          for (var i = 0; i < sel.options.length; i++) {
+            if (label(sel.options[i]).toLowerCase().indexOf(typed) === 0) { highlight(i); break; }
+          }
+        }
+      });
+
+      panel.addEventListener('click', function (e) {
+        var li = e.target.closest ? e.target.closest('.svc-opt') : null;
+        if (li) choose(parseInt(li.getAttribute('data-index'), 10));
+      });
+      panel.addEventListener('mousemove', function (e) {
+        var li = e.target.closest ? e.target.closest('.svc-opt') : null;
+        if (li) highlight(parseInt(li.getAttribute('data-index'), 10));
+      });
+
+      document.addEventListener('mousedown', function (e) {
+        if (isOpen && !combo.contains(e.target)) close(false);
+      });
+
+      /* Anything else that changes the select, such as an INQUIRE button. */
+      sel.addEventListener('change', paint);
+
+      build();
+    })();
 
     /* ------------------------------------------------------------------
        Modal focus helpers
