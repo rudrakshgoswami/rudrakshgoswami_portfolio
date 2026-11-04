@@ -52,6 +52,23 @@ export const DEFAULT_ITEMS = [
   },
 
   {
+    src: 'media/ai-engineer-roadmap.webp',
+    alt: 'AI Engineer Roadmap 2026 website, dark theme, hero and progress counters',
+    title: 'AI Engineer Roadmap 2026',
+    subtitle: 'Learning Platform \u00b7 PDF to Web App',
+    description: 'A free, searchable web version of Aditya Dewaskar\u2019s AI Engineer Roadmap 2026. The roadmap is his work. The site is mine. An 18 page PDF became structured data first: every resource link pulled out of the file and checked page by page against the arrow glyphs printed beside it, so the count could be proved rather than assumed, and all 24 weeks transcribed by hand after two parsing heuristics got them wrong. On top of that sits search across every resource, filters by kind, a Hindi only toggle for the 36 Hindi links, progress tracking for weeks, projects and setup steps, and a start week picker that dims what you have already covered.',
+    stats: '314 free resources \u00b7 24 weeks \u00b7 One file, no build step',
+    tools: ['HTML', 'CSS', 'Vanilla JS', 'Python', 'pypdf', 'Vercel'],
+    deliverables: [
+      'Link extraction from the source PDF, validated page by page',
+      'Search, type filters and a Hindi only toggle across 314 resources',
+      'Progress tracking kept in the browser, nothing sent anywhere',
+      'Light and dark themes, both measured for WCAG AA contrast'
+    ],
+    link: 'https://ai-engineer-roadmap-drab.vercel.app'
+  },
+
+  {
     src: 'media/blog-network.webp',
     alt: 'Diagram representing a pipeline that produced more than fifty sites',
     title: 'AI-Assisted Build Pipeline',
