@@ -392,10 +392,10 @@
       display: flex;
       align-items: center;
       gap: 0.6rem;
-      padding: 0.6rem 0.7rem;
+      padding: 0.5rem 0.7rem;
       border-radius: 0.6rem;
       font-size: 0.8125rem;
-      line-height: 1.35;
+      line-height: 1.3;
       color: #262626;
       cursor: pointer;
     }
@@ -423,7 +423,7 @@
       transform: rotate(180deg);
     }
     @media (hover: none) {
-      .svc-opt { padding: 0.75rem 0.7rem; }
+      .svc-opt { padding: 0.5625rem 0.7rem; }
     }
     @media (prefers-reduced-motion: reduce) {
       .svc-panel { transition: none; }
@@ -1319,7 +1319,7 @@
 
         <!-- Item 3: LANDING PAGE DESIGN (Active by default) -->
         <div id="service-2" onclick="toggleService(2)"
-          class="accordion-item active w-full flex flex-col px-6 py-4 rounded-3xl bg-black text-white shadow-xl cursor-pointer transition-all transform scale-[1.01]">
+          class="accordion-item active w-full flex flex-col px-6 py-4 rounded-3xl border hover:border-black bg-black text-white shadow-xl cursor-pointer transition-all transform scale-[1.01]">
           <div class="flex items-center justify-between">
             <span
               class="item-badge w-8 h-8 rounded-full border border-neutral-700 flex items-center justify-center text-xs font-medium text-neutral-300">3</span>
@@ -1330,7 +1330,7 @@
               class="item-icon w-8 h-8 rounded-full border border-neutral-700 flex items-center justify-center transition-transform rotate-90">
               <svg class="w-3.5 h-3.5 text-white" fill="none"
                 stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path
-                  d="M9 5l7 7-7 7" stroke-linecap="round"
+                  d="M19 9l-7 7-7-7" stroke-linecap="round"
                   stroke-linejoin="round"></path></svg>
             </div>
           </div>
@@ -1795,7 +1795,43 @@
         hl = i;
         items[hl].classList.add('hl');
         trigger.setAttribute('aria-activedescendant', items[hl].id);
-        items[hl].scrollIntoView({ block: 'nearest' });
+        keepInView(items[hl]);
+      }
+
+      /* Keep an option visible inside the panel, and only inside it. offsetTop
+         is unaffected by the open transition's transform; scrollIntoView reads
+         a live rect, and it would drag the modal card around as well. */
+      function keepInView(el) {
+        var top = el.offsetTop;
+        var bottom = top + el.offsetHeight;
+        if (top < panel.scrollTop) {
+          panel.scrollTop = top;
+        } else if (bottom > panel.scrollTop + panel.clientHeight) {
+          panel.scrollTop = bottom - panel.clientHeight;
+        }
+      }
+
+      /* Distance from the top of the card's scrollable content, walked through
+         offsetParent. The card is transformed, so it is an offsetParent and the
+         walk ends there. Returns -1 if it somehow does not. */
+      function offsetWithin(el, card) {
+        var top = 0;
+        while (el && el !== card) {
+          top += el.offsetTop;
+          el = el.offsetParent;
+        }
+        return el === card ? top : -1;
+      }
+
+      /* Scroll the card the least amount that shows the whole panel, and not at
+         all when it is already in view. */
+      function reveal() {
+        var card = document.getElementById('contact-modal-card');
+        if (!card) return;
+        var top = offsetWithin(panel, card);
+        if (top < 0) return;
+        var need = top + panel.offsetHeight + 8 - card.clientHeight;
+        if (need > card.scrollTop) card.scrollTop = Math.min(need, top);
       }
 
       /* Always opens downward. Sized from layout values rather than
@@ -1820,12 +1856,11 @@
         panel.classList.add('open');
         trigger.setAttribute('aria-expanded', 'true');
         highlight(sel.selectedIndex < 0 ? 0 : sel.selectedIndex);
-        /* Let the browser scroll the modal the minimum needed to show the whole
-           panel. It accounts for transforms and scroll containers correctly,
-           which hand-rolled arithmetic here did not. */
-        requestAnimationFrame(function () {
-          panel.scrollIntoView({ block: 'nearest' });
-        });
+        reveal();
+        /* While the panel plays its own open transition it is still scaled and
+           nudged up, so the card reports a slightly shorter scroll range and
+           clamps the scroll above. Run it again once that has settled. */
+        setTimeout(function () { if (isOpen) reveal(); }, 200);
       }
 
       function close(focusTrigger) {
@@ -1895,7 +1930,7 @@
 
       /* Rows are taller on touch, so a rotation while the list is open would
          leave the height measured for the old width. */
-      window.addEventListener('resize', function () { if (isOpen) place(); });
+      window.addEventListener('resize', function () { if (isOpen) { place(); reveal(); } });
 
       build();
     })();
