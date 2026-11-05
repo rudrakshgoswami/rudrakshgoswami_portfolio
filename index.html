@@ -437,6 +437,13 @@
          consent to. The path only resolves on Vercel, so opening the site
          from a local server logs a 404 for it and nothing else breaks. -->
     <script defer src="/_vercel/insights/script.js"></script>
+
+    <!-- Vercel Speed Insights, loaded the same way and for the same reason:
+         no bundler. It reports Core Web Vitals from real visits, so it
+         measures what a client on mobile data actually gets rather than what
+         a lab run claims. One page, so the package route tracking would buy
+         nothing. Hobby allows this on one project; it is spent here. -->
+    <script defer src="/_vercel/speed-insights/script.js"></script>
   </head>
   <body class="antialiased text-[#111] bg-[#FAFAFA]">
 
