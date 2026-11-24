@@ -185,7 +185,7 @@ the original content was another developer's client work. That content and its
 screenshots have been deleted, and `DEFAULT_WORKS` is now an empty array with a
 template in the comment above it.
 
-To bring it back for the 50+ blog network:
+To bring it back for the 100+ blog network:
 
 1. Put 4 to 6 blog screenshots in `media/`.
 2. Fill in `DEFAULT_WORKS` at the top of `works-wheel.js`.
